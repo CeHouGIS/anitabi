@@ -1,3 +1,5 @@
+# python /code/anitabi/crawlers_script.py
+
 import requests
 from PIL import Image
 from io import BytesIO
@@ -36,11 +38,13 @@ def get_images(img_url):
 
 
 def crawl(anime_id):
-    metadata_savepath = "/data_nas/cehou/anitabi/metadata/"
-    os.makedirs(os.path.join(metadata_savepath, f"{anime_id}"), exist_ok=True)
+
     print(f"Start crawling metadata for anime with ID: {anime_id}")
     litepoints_data = get_metadata(anime_id, "litepoints")
     litepoints_df = pd.DataFrame(litepoints_data['litePoints'])
+    
+    metadata_savepath = "/data_nas/cehou/anitabi/metadata/"
+    os.makedirs(os.path.join(metadata_savepath, f"{anime_id}"), exist_ok=True)
     litepoints_df.to_csv(os.path.join(metadata_savepath, f"{anime_id}/litepoints_metadata.csv"), index=False)
 
     anime_data = get_metadata(anime_id, "anime")
@@ -79,7 +83,7 @@ def crawl(anime_id):
 if __name__ == "__main__":
     anitabi_dir = "/data_nas/cehou/anitabi/metadata/"
     exists = [int(i) for i in os.listdir(anitabi_dir)]
-    for i in tqdm(range(1, 5)):
+    for i in tqdm(range(1, 999999)):
         if i in exists:
             continue
         else:
