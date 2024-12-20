@@ -39,7 +39,7 @@ def get_images(img_url):
 
 def crawl(anime_id):
 
-    print(f"Start crawling metadata for anime with ID: {anime_id}")
+    # print(f"Start crawling metadata for anime with ID: {anime_id}")
     litepoints_data = get_metadata(anime_id, "litepoints")
     litepoints_df = pd.DataFrame(litepoints_data['litePoints'])
     
@@ -83,7 +83,7 @@ def crawl(anime_id):
 if __name__ == "__main__":
     anitabi_dir = "/data_nas/cehou/anitabi/metadata/"
     exists = [int(i) for i in os.listdir(anitabi_dir)]
-    for i in tqdm(range(1, 999999)):
+    for i in tqdm(range(37026, 999999)):
         if i in exists:
             continue
         else:
