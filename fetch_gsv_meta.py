@@ -1,18 +1,19 @@
 """
 Phase 2 · 圣地 GSV 时序元数据抓取 + 动漫帧图下载
 
-输入：data/raw/sites_raw.csv（discover_anime.py 输出）
+输入：data/raw/sites_raw.csv（discover_anime.py 输出，含全年代）
 
 流程：
-  1. 对每个圣地坐标调用 GeoPhotoService → 获取所有历史 panoid 及日期
-  2. 季度去重（每季度只保留最新一张）
-  3. DiD 可用性过滤：播出前 ≥1 张 AND 播出后 ≥1 张
-  4. 下载动漫帧缩略图 → docs/img/anime_full/{site_id}.jpg
-  5. 断点续跑（已处理的 site_id 跳过）
+  1. 跳过 GSV_FROM_YEAR 之前的圣地（只对2016+做DiD分析）
+  2. 对每个圣地坐标调用 GeoPhotoService → 获取所有历史 panoid 及日期
+  3. 季度去重（每季度只保留最新一张）
+  4. DiD 可用性过滤：播出前 ≥1 张 AND 播出后 ≥1 张
+  5. 下载动漫帧缩略图 → docs/img/anime_full/{site_id}.jpg
+  6. 断点续跑（已处理的 site_id 跳过）
 
 输出：
   data/raw/sites_eligible.csv  ← 合格圣地 + 完整 panoid 时序（JSON 列）
-  docs/img/anime_full/         ← 动漫帧图
+  docs/img/anime_full/         ← 动漫帧图（仅2016+）
 """
 
 import csv, re, time, json, logging
@@ -36,6 +37,7 @@ ANIME_IMG  = Path('docs/img/anime_full')
 GSV_DELAY       = 0.4    # GeoPhotoService 请求间隔（秒）
 IMG_DOWNLOAD_W  = 6      # 图片下载并发线程数
 IMG_SIZE        = (640, 360)   # 动漫帧保存尺寸
+GSV_FROM_YEAR   = 2016   # 只对此年及之后播出的动漫做 GSV 时序查询
 
 OUT_FIELDS = [
     'site_id', 'bangumi_id', 'title_cn', 'air_date',
@@ -180,6 +182,11 @@ def main():
                 bc_m = int(air_date[5:7])
             except Exception:
                 log.debug(f'{site_id}: 无法解析播出日期 {air_date}，跳过')
+                continue
+
+            # 只对 GSV_FROM_YEAR 及之后的动漫做 GSV 时序分析
+            if bc_y < GSV_FROM_YEAR:
+                done_ids.add(site_id)   # 标记已处理（跳过），避免重复日志
                 continue
 
             if (i + 1) % 100 == 0:

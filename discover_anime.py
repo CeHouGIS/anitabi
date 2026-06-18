@@ -1,5 +1,5 @@
 """
-Phase 1 · 发现 2016-2024 年在 anitabi 有数据的日本动漫
+Phase 1 · 发现 1990-2024 年在 anitabi 有数据的日本动漫（全年代普查）
 
 流程：
   Bangumi v0 Search API (按季度分页，避免 1000 条上限)
@@ -8,8 +8,10 @@ Phase 1 · 发现 2016-2024 年在 anitabi 有数据的日本动漫
   → 断点续跑（已记录的 bangumi_id 跳过）
 
 输出：
-  data/raw/anime_list.csv   ← 合格动漫元数据
-  data/raw/sites_raw.csv    ← 所有圣地坐标（含 image URL）
+  data/raw/anime_list.csv   ← 合格动漫元数据（全年代）
+  data/raw/sites_raw.csv    ← 所有圣地坐标（全年代，不含图片）
+
+注：fetch_gsv_meta.py 只对 2016+ 动漫做 GSV 时序分析（GSV_FROM_YEAR 配置）
 """
 
 import csv, time, logging
@@ -22,7 +24,7 @@ logging.basicConfig(level=logging.INFO,
 log = logging.getLogger(__name__)
 
 # ── 配置 ────────────────────────────────────────────────
-YEARS           = range(2016, 2025)
+YEARS           = range(1990, 2025)   # 全年代普查；2016+ 圣地将进入 GSV 管线
 MIN_JAPAN_SITES = 5
 JAPAN_LAT       = (24.0, 46.0)
 JAPAN_LON       = (122.0, 154.0)
