@@ -5,11 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>二次元圣地巡礼 · 空间分析 Demo</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -52,38 +50,20 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
 .info-card td:last-child{font-size:.76rem}
 .tag{display:inline-block;padding:.1rem .38rem;border-radius:.22rem;font-size:.66rem;font-weight:600;background:#2a2d3e;color:var(--accent)}
 
-/* 感知评分面板（点击有数据的圣地后显示） */
+/* ── 对比图片面板 ── */
+#cmp-panel{display:none;margin-top:.75rem}
+.cmp-row{margin-bottom:.5rem}
+.cmp-lbl{font-size:.66rem;color:var(--muted);letter-spacing:.06em;margin-bottom:.3rem;display:flex;align-items:center;gap:.35rem}
+.badge-sm{padding:.05rem .3rem;border-radius:.2rem;font-size:.62rem;font-weight:700}
+.badge-anime{background:#7c6ef222;color:#a5b4fc}
+.badge-gsv{background:#22d3ee22;color:#22d3ee}
+.cmp-img{width:100%;display:block;border-radius:.4rem;aspect-ratio:16/9;object-fit:cover;background:#12151f}
+.cmp-note{font-size:.68rem;color:var(--muted);margin-top:.3rem;line-height:1.5}
+
+/* ── 感知评分面板 ── */
 #score-panel{display:none;margin-top:.75rem}
 #score-panel .sp-hd{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
 #score-panel .sp-foot{font-size:.62rem;color:var(--muted);margin-top:.3rem;text-align:center}
-
-/* 圣地对比按钮 */
-.compare-btn{width:100%;margin-top:.55rem;padding:.45rem;border-radius:.35rem;background:var(--accent);color:#fff;font-size:.75rem;font-weight:600;border:none;cursor:pointer;transition:opacity .15s}
-.compare-btn:hover{opacity:.85}
-
-/* ── 对比弹窗 ── */
-#cmp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1000;align-items:center;justify-content:center}
-#cmp-overlay.open{display:flex}
-#cmp-box{background:var(--panel);border:1px solid var(--border);border-radius:.7rem;width:min(94vw,1120px);max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
-#cmp-hd{display:flex;align-items:center;gap:.65rem;padding:.7rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0}
-.cmp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-#cmp-name{font-weight:700;font-size:.95rem}
-#cmp-sub{font-size:.73rem;color:var(--muted);margin-top:.05rem}
-.cmp-close{margin-left:auto;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:.15rem .45rem;border-radius:.3rem;line-height:1}
-.cmp-close:hover{color:var(--text);background:var(--border)}
-#cmp-bd{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0}
-.cmp-col{display:flex;flex-direction:column;padding:.75rem 1rem;min-width:0}
-.cmp-col:first-child{border-right:1px solid var(--border)}
-.cmp-col-lbl{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem}
-.badge-sm{padding:.06rem .35rem;border-radius:.2rem;font-size:.62rem;font-weight:700}
-.badge-anime{background:#7c6ef222;color:#a5b4fc}
-.badge-gsv{background:#22d3ee22;color:#22d3ee}
-.cmp-col img{width:100%;border-radius:.4rem;aspect-ratio:16/9;object-fit:cover;display:block}
-.cmp-pano{position:relative;width:100%;aspect-ratio:2/1;border-radius:.4rem;overflow:hidden;background:#0d1018;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--muted);font-size:.8rem;transition:background .15s}
-.cmp-pano:hover{background:#131724}
-.cmp-pano.active{cursor:default}
-.cmp-pano-icon{font-size:1.8rem;opacity:.35}
-.cmp-note{font-size:.72rem;color:var(--muted);margin-top:.5rem;line-height:1.55}
 
 /* ── 杂项 ── */
 ::-webkit-scrollbar{width:5px}
@@ -95,13 +75,8 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
 .leaflet-popup-content{margin:.6rem .85rem}
 .leaflet-popup-content b{color:#a5b4fc;display:block;margin-bottom:.25rem;font-size:.88rem}
 .leaflet-popup-content small{color:var(--muted)}
-.pnlm-ui .pnlm-about-msg{display:none}
 
-@media(max-width:720px){
-  aside{display:none}
-  #cmp-bd{grid-template-columns:1fr}
-  .cmp-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
-}
+@media(max-width:720px){aside{display:none}}
 </style>
 </head>
 <body>
@@ -113,7 +88,6 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
   <a href="https://github.com/CeHouGIS/anitabi" target="_blank">GitHub →</a>
 </header>
 
-<!-- 主布局：地图 + 侧边栏 -->
 <div id="layout">
   <div id="map"></div>
   <aside>
@@ -135,10 +109,24 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
       <div id="site-info">
         <p style="margin-top:.4rem;line-height:1.65;color:var(--muted);font-size:.8rem">
           大圆点（白色描边）= 精选 7 个代表圣地，已采集历史街景及感知评分。<br><br>
-          点击圆点后可查看该圣地的感知质量时序图，以及动漫帧与 360° 全景对比。
+          点击后可查看动漫帧与实景对比，以及感知质量时序变化。
         </p>
       </div>
-      <!-- 感知评分面板（点击有分数的圣地后展开） -->
+
+      <!-- 动漫帧 vs 实景街景 -->
+      <div id="cmp-panel">
+        <div class="cmp-row">
+          <div class="cmp-lbl"><span class="badge-sm badge-anime">动漫帧</span>anitabi 场景截图</div>
+          <img id="cmp-anime" class="cmp-img" alt="">
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-lbl"><span class="badge-sm badge-gsv">实景街景</span>Google Street View</div>
+          <img id="cmp-street" class="cmp-img" alt="" style="object-position:center 40%">
+        </div>
+        <div class="cmp-note" id="cmp-note"></div>
+      </div>
+
+      <!-- 感知评分时序 -->
       <div id="score-panel">
         <div class="sp-hd">感知评分 · 时序</div>
         <div style="position:relative;height:175px">
@@ -148,35 +136,6 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
       </div>
     </div>
   </aside>
-</div>
-
-<!-- 圣地对比弹窗 -->
-<div id="cmp-overlay" onclick="if(event.target===this)closeCompare()">
-  <div id="cmp-box">
-    <div id="cmp-hd">
-      <div class="cmp-dot" id="cmp-dot"></div>
-      <div>
-        <div id="cmp-name"></div>
-        <div id="cmp-sub"></div>
-      </div>
-      <button class="cmp-close" onclick="closeCompare()">×</button>
-    </div>
-    <div id="cmp-bd">
-      <div class="cmp-col">
-        <div class="cmp-col-lbl"><span class="badge-sm badge-anime">动漫帧</span>anitabi 场景截图</div>
-        <img id="cmp-anime-img" alt="" onerror="this.style.opacity='.2'">
-        <div class="cmp-note" id="cmp-note"></div>
-      </div>
-      <div class="cmp-col">
-        <div class="cmp-col-lbl"><span class="badge-sm badge-gsv">GSV 全景</span>4096×2048 · <span id="cmp-date"></span></div>
-        <div class="cmp-pano" id="cmp-pano" onclick="loadModalPano(this)">
-          <div class="cmp-pano-icon">⟳</div>
-          <div>360° 全景街景</div>
-          <div style="font-size:.68rem">点击加载并拖动旋转</div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -192,31 +151,31 @@ const PLACE_TYPE_ZH={
 /* ── 对比数据 ─────────────────────────────────────────── */
 const COMPARE_SITES=[
   {id:'S_27364_0002',anime_id:27364,city:'高山市 · 岐阜',
-   name:'本町商店街（OP1 场景）',place_type:'shopping_street',broadcast:'2012-04',
+   name:'本町商店街（OP1 场景）',broadcast:'2012-04',
    anime_img:'img/anime/S_27364_0002.jpg',pano:'img/pano/S_27364_0002.jpg',
-   note:'动漫里的商店街，高山市保存完好的传统町家老街'},
+   note:'高山市保存完好的传统町家老街，冰菓 OP1 取景地'},
   {id:'S_27364_0004',anime_id:27364,city:'高山市 · 岐阜',
-   name:'鍛冶橋交差点',place_type:'bridge',broadcast:'2012-04',
+   name:'鍛冶橋交差点',broadcast:'2012-04',
    anime_img:'img/anime/S_27364_0004.jpg',pano:'img/pano/S_27364_0004.jpg',
    note:'高山市主干商业道路，500m 内 77 家餐厅'},
   {id:'S_27364_0026',anime_id:27364,city:'高山市 · 岐阜',
-   name:'宮川朝市',place_type:'river',broadcast:'2012-04',
+   name:'宮川朝市',broadcast:'2012-04',
    anime_img:'img/anime/S_27364_0026.jpg',pano:'img/pano/S_27364_0026.jpg',
    note:'宮川河岸早市，柳树与传统民家沿河排列'},
   {id:'S_10440_0030',anime_id:10440,city:'秩父市 · 埼玉',
-   name:'旧秩父橋',place_type:'bridge',broadcast:'2011-04',
+   name:'旧秩父橋',broadcast:'2011-04',
    anime_img:'img/anime/S_10440_0030.jpg',pano:'img/pano/S_10440_0030.jpg',
    note:'粉丝最常打卡的标志性大桥，新旧两座桥梁并排'},
   {id:'S_10440_0051',anime_id:10440,city:'秩父市 · 埼玉',
-   name:'秩父神社前',place_type:'shrine',broadcast:'2011-04',
+   name:'秩父神社前',broadcast:'2011-04',
    anime_img:'img/anime/S_10440_0051.jpg',pano:'img/pano/S_10440_0051.jpg',
    note:'石灯笼·参道·大树，典型下町神社空间'},
   {id:'S_207195_0069',anime_id:207195,city:'南アルプス市 · 山梨',
-   name:'ローソン 南アルプス街道店',place_type:'other',broadcast:'2018-01',
+   name:'ローソン 南アルプス街道店',broadcast:'2018-01',
    anime_img:'img/anime/S_207195_0069.jpg',pano:'img/pano/S_207195_0069.jpg',
    note:'开阔公路+山地背景的小镇便利店，志摩凛骑车途经场景'},
   {id:'S_207195_0075',anime_id:207195,city:'南アルプス市 · 山梨',
-   name:'夜叉神峠登山口',place_type:'hill_viewpoint',broadcast:'2018-01',
+   name:'夜叉神峠登山口',broadcast:'2018-01',
    anime_img:'img/anime/S_207195_0075.jpg',pano:'img/pano/S_207195_0075.jpg',
    note:'岩石·山道入口，郊野户外型圣地'},
 ];
@@ -264,7 +223,18 @@ const SCORE_DATA=[
 const SCORE_MAP={};
 SCORE_DATA.forEach(s=>{SCORE_MAP[s.id]=s;});
 
-/* ── 感知评分：侧边栏图表 ────────────────────────────── */
+/* ── 对比图片面板 ─────────────────────────────────────── */
+function showCmpPanel(siteId){
+  const s=PANO_MAP[siteId];
+  const panel=document.getElementById('cmp-panel');
+  if(!s){panel.style.display='none';return;}
+  panel.style.display='block';
+  document.getElementById('cmp-anime').src=s.anime_img;
+  document.getElementById('cmp-street').src=s.pano;
+  document.getElementById('cmp-note').textContent=s.note;
+}
+
+/* ── 感知评分时序图 ──────────────────────────────────── */
 let asideChart=null;
 
 function bcastLinePos(dates,broadcast){
@@ -313,52 +283,6 @@ function showScorePanel(siteId){
   });
 }
 
-/* ── 对比弹窗 ─────────────────────────────────────────── */
-let modalPano=null;
-
-function openCompare(siteId){
-  const s=PANO_MAP[siteId];
-  if(!s) return;
-  document.getElementById('cmp-dot').style.background=ANIME_COLOR[s.anime_id];
-  document.getElementById('cmp-name').textContent=s.name;
-  document.getElementById('cmp-sub').textContent=s.city+' · '+ANIME_NAME[s.anime_id];
-  document.getElementById('cmp-date').textContent='对齐 '+s.broadcast;
-  document.getElementById('cmp-anime-img').src=s.anime_img;
-  document.getElementById('cmp-note').textContent=s.note;
-  // 重置全景
-  if(modalPano){try{modalPano.destroy();}catch(e){}modalPano=null;}
-  const pano=document.getElementById('cmp-pano');
-  pano.className='cmp-pano';
-  pano.dataset.src=s.pano;
-  pano.innerHTML='<div class="cmp-pano-icon">⟳</div><div>360° 全景街景</div><div style="font-size:.68rem">点击加载并拖动旋转</div>';
-  pano.onclick=function(){loadModalPano(this);};
-  document.getElementById('cmp-overlay').classList.add('open');
-}
-
-function closeCompare(){
-  document.getElementById('cmp-overlay').classList.remove('open');
-  if(modalPano){try{modalPano.destroy();}catch(e){}modalPano=null;}
-}
-
-function loadModalPano(el){
-  if(el.classList.contains('active')) return;
-  el.classList.add('active');
-  el.onclick=null;
-  el.innerHTML='<div style="color:var(--muted);font-size:.8rem">加载全景图中…</div>';
-  const src=el.dataset.src;
-  requestAnimationFrame(()=>{
-    modalPano=pannellum.viewer('cmp-pano',{
-      type:'equirectangular',panorama:src,
-      autoLoad:true,autoRotate:-1.5,
-      showControls:true,showFullscreenCtrl:true,showZoomCtrl:false,
-      compass:false,hfov:100,minHfov:50,maxHfov:130,
-    });
-  });
-}
-
-// ESC 键关闭弹窗
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCompare();});
-
 /* ── 地图 ─────────────────────────────────────────────── */
 const map=L.map('map',{center:[36.1,138.2],zoom:7,preferCanvas:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
@@ -384,10 +308,6 @@ SITES.features.forEach(f=>{
 });
 
 function showInfo(p,ptZh,hasPano){
-  const hasScore=!!SCORE_MAP[p.id];
-  const cmpBtn=hasPano
-    ?`<button class="compare-btn" onclick="openCompare('${p.id}')">查看动漫帧 vs 360° 全景 →</button>`
-    :'';
   document.getElementById('site-info').innerHTML=`
     <div class="info-card">
       <div class="card-title">${p.name}</div>
@@ -397,11 +317,10 @@ function showInfo(p,ptZh,hasPano){
         <tr><td>城市</td><td>${p.city}</td></tr>
         ${hasPano?'<tr><td>街景</td><td><span style="color:#a3e635;font-size:.72rem">✓ 已采集历史时序</span></td></tr>':''}
       </table>
-      ${cmpBtn}
     </div>`;
+  showCmpPanel(p.id);
   showScorePanel(p.id);
 }
-
 </script>
 </body>
 </html>
