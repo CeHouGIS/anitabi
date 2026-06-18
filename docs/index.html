@@ -4,14 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>二次元圣地巡礼 · 空间分析 Demo</title>
-
-<!-- Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -22,275 +17,355 @@
 body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
 /* ── header ── */
-header{display:flex;align-items:center;gap:1rem;padding:.75rem 1.25rem;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0}
-header h1{font-size:1.1rem;font-weight:700;letter-spacing:.05em}
+header{display:flex;align-items:center;gap:.9rem;padding:.65rem 1.2rem;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;z-index:10}
+header h1{font-size:1rem;font-weight:700;letter-spacing:.04em;white-space:nowrap}
 header h1 span{color:var(--accent)}
-.badge{padding:.2rem .55rem;border-radius:.3rem;font-size:.72rem;font-weight:600;background:#2a2d3e;color:var(--muted)}
+.badge{padding:.15rem .5rem;border-radius:.3rem;font-size:.68rem;font-weight:600;background:#2a2d3e;color:var(--muted);white-space:nowrap}
 header .spacer{flex:1}
-header a{color:var(--muted);font-size:.8rem;text-decoration:none}
+header a{color:var(--muted);font-size:.78rem;text-decoration:none}
 header a:hover{color:var(--text)}
 
-/* ── main layout ── */
-main{display:flex;flex:1;overflow:hidden}
+/* ── tab bar ── */
+.tabs{display:flex;gap:0;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0}
+.tab{padding:.55rem 1.2rem;font-size:.82rem;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--text);border-bottom-color:var(--accent)}
+
+/* ── pages ── */
+.page{display:none;flex:1;overflow:hidden}
+.page.active{display:flex}
+
+/* ══════════════════════════════════
+   MAP PAGE
+══════════════════════════════════ */
 #map{flex:1;z-index:1}
-
-/* ── sidebar ── */
-aside{width:340px;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
-
-/* ── legend ── */
-.legend{padding:.9rem 1rem .7rem;border-bottom:1px solid var(--border)}
-.legend h3{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
-.legend-items{display:flex;flex-direction:column;gap:.35rem}
-.legend-item{display:flex;align-items:center;gap:.5rem;font-size:.82rem}
-.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
-
-/* ── stats ── */
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;padding:.9rem 1rem;border-bottom:1px solid var(--border)}
-.stat{background:#12151f;border-radius:.5rem;padding:.6rem .7rem;text-align:center}
-.stat .val{font-size:1.35rem;font-weight:700;color:var(--accent);line-height:1.1}
-.stat .lbl{font-size:.65rem;color:var(--muted);margin-top:.2rem}
-
-/* ── chart area ── */
-.chart-wrap{padding:.9rem 1rem;border-bottom:1px solid var(--border)}
-.chart-wrap h3{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
-
-/* ── info panel ── */
-.info-panel{flex:1;overflow-y:auto;padding:.9rem 1rem}
-.info-panel h3{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
-#site-info{font-size:.82rem;color:var(--muted)}
-.info-card{background:#12151f;border-radius:.5rem;padding:.75rem;margin-bottom:.5rem}
-.info-card .card-title{color:var(--text);font-weight:600;margin-bottom:.4rem;font-size:.9rem}
+aside{width:320px;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.legend{padding:.8rem 1rem .65rem;border-bottom:1px solid var(--border)}
+.legend h3,.section-title{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem}
+.legend-items{display:flex;flex-direction:column;gap:.3rem}
+.legend-item{display:flex;align-items:center;gap:.45rem;font-size:.8rem}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;padding:.8rem 1rem;border-bottom:1px solid var(--border)}
+.stat{background:#12151f;border-radius:.45rem;padding:.55rem .6rem;text-align:center}
+.stat .val{font-size:1.25rem;font-weight:700;color:var(--accent);line-height:1.1}
+.stat .lbl{font-size:.62rem;color:var(--muted);margin-top:.15rem}
+.chart-wrap{padding:.8rem 1rem;border-bottom:1px solid var(--border)}
+.info-panel{flex:1;overflow-y:auto;padding:.8rem 1rem}
+#site-info{font-size:.8rem;color:var(--muted)}
+.info-card{background:#12151f;border-radius:.45rem;padding:.7rem;margin-bottom:.45rem}
+.info-card .card-title{color:var(--text);font-weight:600;margin-bottom:.35rem;font-size:.88rem}
 .info-card table{width:100%;border-collapse:collapse}
-.info-card td{padding:.2rem .15rem;vertical-align:top}
-.info-card td:first-child{color:var(--muted);width:80px;font-size:.75rem}
-.info-card td:last-child{font-size:.78rem}
-.tag{display:inline-block;padding:.1rem .4rem;border-radius:.25rem;font-size:.68rem;font-weight:600;background:#2a2d3e;color:var(--accent)}
+.info-card td{padding:.18rem .12rem;vertical-align:top}
+.info-card td:first-child{color:var(--muted);width:76px;font-size:.72rem}
+.info-card td:last-child{font-size:.76rem}
+.tag{display:inline-block;padding:.1rem .38rem;border-radius:.22rem;font-size:.66rem;font-weight:600;background:#2a2d3e;color:var(--accent)}
+/* image pair inside map info card */
+.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem}
+.img-pair figure{margin:0}
+.img-pair figcaption{font-size:.62rem;color:var(--muted);margin-top:.2rem;text-align:center}
+.img-pair img{width:100%;border-radius:.3rem;aspect-ratio:16/9;object-fit:cover;background:#0d1018}
 
-/* ── place type tag colors ── */
-.pt-shrine{background:#fde68a22;color:#fde68a}
-.pt-bridge{background:#93c5fd22;color:#93c5fd}
-.pt-temple{background:#c4b5fd22;color:#c4b5fd}
-.pt-station{background:#6ee7b722;color:#6ee7b7}
-.pt-park{background:#a3e63522;color:#a3e635}
-.pt-hill{background:#fb923c22;color:#fb923c}
-.pt-river{background:#38bdf822;color:#38bdf8}
-.pt-school{background:#f9a8d422;color:#f9a8d4}
-.pt-shopping{background:#fbbf2422;color:#fbbf24}
-.pt-other{background:#6b709422;color:#6b7094}
+/* ══════════════════════════════════
+   COMPARE PAGE
+══════════════════════════════════ */
+#page-compare{flex-direction:column;overflow-y:auto}
+.compare-header{padding:1rem 1.5rem .5rem;flex-shrink:0}
+.compare-header h2{font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.compare-header p{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:680px}
+.compare-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(680px,1fr));gap:1rem;padding:.5rem 1.5rem 1.5rem}
+.ccard{background:var(--panel);border:1px solid var(--border);border-radius:.6rem;overflow:hidden}
+.ccard-head{display:flex;align-items:center;gap:.6rem;padding:.65rem .9rem;border-bottom:1px solid var(--border)}
+.ccard-head .anime-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ccard-head .site-name{font-weight:600;font-size:.88rem}
+.ccard-head .city-tag{margin-left:auto;font-size:.7rem;color:var(--muted)}
+.ccard-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ccard-col{padding:.75rem .9rem}
+.ccard-col:first-child{border-right:1px solid var(--border)}
+.col-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;display:flex;align-items:center;gap:.35rem}
+.col-label .badge-sm{padding:.06rem .35rem;border-radius:.2rem;font-size:.62rem;font-weight:700}
+.badge-anime{background:#7c6ef222;color:#a5b4fc}
+.badge-gsv{background:#22d3ee22;color:#22d3ee}
+.ccard-col img{width:100%;border-radius:.35rem;aspect-ratio:16/9;object-fit:cover;background:#12151f;display:block}
+.ccard-meta{padding:.5rem .9rem .7rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.ccard-meta .tag{font-size:.66rem}
+.score-badge{margin-left:auto;display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--muted)}
+.score-badge .score-val{font-size:.9rem;font-weight:700;color:var(--accent)}
 
 /* ── scrollbar ── */
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-/* ── leaflet dark overrides ── */
+/* ── leaflet overrides ── */
 .leaflet-container{background:#1a2031}
-.leaflet-popup-content-wrapper{background:#1a1d27;color:#e2e4ef;border:1px solid #2a2d3e;border-radius:.5rem;box-shadow:0 4px 20px #0006;font-size:.82rem}
+.leaflet-popup-content-wrapper{background:#1a1d27;color:#e2e4ef;border:1px solid #2a2d3e;border-radius:.45rem;box-shadow:0 4px 20px #0006;font-size:.8rem}
 .leaflet-popup-tip{background:#1a1d27}
-.leaflet-popup-content{margin:.7rem .9rem}
-.leaflet-popup-content b{color:#a5b4fc;display:block;margin-bottom:.3rem;font-size:.9rem}
+.leaflet-popup-content{margin:.6rem .85rem}
+.leaflet-popup-content b{color:#a5b4fc;display:block;margin-bottom:.25rem;font-size:.88rem}
 .leaflet-popup-content small{color:var(--muted)}
 
-/* ── responsive ── */
-@media(max-width:700px){
+@media(max-width:720px){
   aside{display:none}
+  .compare-grid{grid-template-columns:1fr;padding:.5rem .75rem 1rem}
+  .ccard-body{grid-template-columns:1fr}
+  .ccard-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>二次元圣地巡礼 <span>·</span> 空间分析 Demo</h1>
-  <span class="badge">Pilot</span>
+  <h1>二次元圣地巡礼 <span>·</span> 空间分析</h1>
+  <span class="badge">Demo · 3 作品 · 90 圣地</span>
   <div class="spacer"></div>
   <a href="https://github.com/CeHouGIS/anitabi" target="_blank">GitHub →</a>
 </header>
 
-<main>
-  <div id="map"></div>
+<!-- Tab bar -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('map')">地图分布</div>
+  <div class="tab" onclick="switchTab('compare')">圣地对比</div>
+</div>
 
+<!-- ══ MAP PAGE ══ -->
+<div class="page active" id="page-map">
+  <div id="map"></div>
   <aside>
-    <!-- 图例 -->
     <div class="legend">
       <h3>动画作品</h3>
       <div class="legend-items">
         <div class="legend-item"><div class="dot" style="background:var(--anime1)"></div><span>冰菓（高山市 · 岐阜）</span></div>
         <div class="legend-item"><div class="dot" style="background:var(--anime2)"></div><span>未闻花名（秩父市 · 埼玉）</span></div>
-        <div class="legend-item"><div class="dot" style="background:var(--anime3)"></div><span>摇曳露营△（山梨·长野）</span></div>
-        <div class="legend-item"><div class="dot" style="background:#444;border:1px solid #666"></div><span>随机对照点</span></div>
+        <div class="legend-item"><div class="dot" style="background:var(--anime3)"></div><span>摇曳露营△（山梨 · 长野）</span></div>
       </div>
     </div>
-
-    <!-- 统计 -->
     <div class="stats">
       <div class="stat"><div class="val">90</div><div class="lbl">圣地点位</div></div>
       <div class="stat"><div class="val">270</div><div class="lbl">对照点位</div></div>
       <div class="stat"><div class="val">3</div><div class="lbl">作品</div></div>
     </div>
-
-    <!-- 旅游转化评分图表 -->
     <div class="chart-wrap">
-      <h3>旅游转化综合评分</h3>
-      <canvas id="tourChart" height="130"></canvas>
+      <div class="section-title">旅游转化综合评分</div>
+      <canvas id="tourChart" height="120"></canvas>
     </div>
-
-    <!-- 地点信息面板 -->
     <div class="info-panel">
-      <h3>点击地图查看详情</h3>
+      <div class="section-title">点击地图查看详情</div>
       <div id="site-info">
-        <p style="margin-top:.5rem;line-height:1.6">
-          本 Demo 展示三部动画作品的<strong style="color:var(--text)">圣地巡礼点</strong>（共 90 个）及同城随机<strong style="color:var(--text)">对照点</strong>（共 270 个）的地理分布。
-          研究核心问题：普通城市空间通过媒体再现、粉丝认同与旅游整合，何种空间条件更易成为动漫圣地？
+        <p style="margin-top:.4rem;line-height:1.65;color:var(--muted);font-size:.8rem">
+          本 Demo 展示三部动画作品的<strong style="color:var(--text)">圣地巡礼点</strong>（共 90 个）的地理分布。<br><br>
+          研究问题：普通城市空间通过媒体再现、粉丝认同与旅游整合，何种空间条件更易成为动漫圣地？<br><br>
+          <span style="color:var(--accent)">→ 切换「圣地对比」标签查看动漫帧与实景街景对比</span>
         </p>
       </div>
     </div>
   </aside>
-</main>
+</div>
+
+<!-- ══ COMPARE PAGE ══ -->
+<div class="page" id="page-compare">
+  <div class="compare-header">
+    <h2>圣地巡礼 · 动漫帧 vs 实景街景</h2>
+    <p>精选 7 处具代表性的圣地，左侧为 anitabi 收录的动漫对应帧截图，右侧为 Google Street View 实地街景。
+       三部作品呈现截然不同的空间特征：高山市内嵌于成熟旅游商业街，秩父市依托神社与桥梁等节点，山梨/长野则以郊野公路和登山口为主。</p>
+  </div>
+  <div class="compare-grid" id="compare-grid"></div>
+</div>
 
 <script>
-// ── 地图初始化 ───────────────────────────────────────────
-const map = L.map('map', {
-  center: [36.1, 138.2],
-  zoom: 7,
-  zoomControl: true
-});
-
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '© OpenStreetMap contributors © CARTO',
-  maxZoom: 19
-}).addTo(map);
-
-// ── 颜色 & 标签配置 ─────────────────────────────────────
-const ANIME_COLOR = {27364: '#f97316', 10440: '#22d3ee', 207195: '#a3e635'};
-const ANIME_NAME  = {
-  27364:  '冰菓',
-  10440:  '未闻花名',
-  207195: '摇曳露营△'
-};
-const PLACE_TYPE_ZH = {
-  shrine:         '神社·庙宇',
-  temple:         '寺院',
-  bridge:         '桥梁',
-  station:        '车站',
-  park:           '公园',
-  hill_viewpoint: '山地景观',
-  river:          '河流水岸',
-  school:         '学校',
-  shopping_street:'商业街',
-  intersection:   '路口',
-  coastal:        '海岸',
-  other:          '其他'
-};
-const PLACE_TYPE_CLASS = {
-  shrine:'pt-shrine', temple:'pt-temple', bridge:'pt-bridge',
-  station:'pt-station', park:'pt-park', hill_viewpoint:'pt-hill',
-  river:'pt-river', school:'pt-school', shopping_street:'pt-shopping',
-  intersection:'pt-other', other:'pt-other'
-};
-
-function makeMarker(lat, lon, color, r=7){
-  return L.circleMarker([lat, lon], {
-    radius: r,
-    fillColor: color,
-    color: '#fff',
-    weight: 1,
-    opacity: .7,
-    fillOpacity: .82
+/* ── Tab switching ───────────────────────────────────── */
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const names=['map','compare'];
+    t.classList.toggle('active', names[i]===name);
   });
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.toggle('active', p.id==='page-'+name);
+  });
+  if(name==='map') setTimeout(()=>map.invalidateSize(),50);
 }
 
-// ── 圣地点位 GeoJSON ─────────────────────────────────────
-const SITES = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2581, 36.1566]}, "properties": {"id": "S_27364_0000", "anime_id": 27364, "title": "冰菓", "name": "上学道", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2579, 36.1563]}, "properties": {"id": "S_27364_0001", "anime_id": 27364, "title": "冰菓", "name": "神山高校", "place_type": "school", "city": "高山市", "prefecture": "岐阜県", "sensitive": true}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2568, 36.1454]}, "properties": {"id": "S_27364_0002", "anime_id": 27364, "title": "冰菓", "name": "OP1 场景（本田41商店街駆車场）", "place_type": "shopping_street", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2582, 36.1411]}, "properties": {"id": "S_27364_0003", "anime_id": 27364, "title": "冰菓", "name": "猫鱼雕像", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2575, 36.1429]}, "properties": {"id": "S_27364_0004", "anime_id": 27364, "title": "冰菓", "name": "鍛冶橋交差点", "place_type": "bridge", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.256, 36.1379]}, "properties": {"id": "S_27364_0005", "anime_id": 27364, "title": "冰菓", "name": "神山神社石狮", "place_type": "shrine", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2578, 36.1425]}, "properties": {"id": "S_27364_0006", "anime_id": 27364, "title": "冰菓", "name": "猫鱼", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2652, 36.1414]}, "properties": {"id": "S_27364_0007", "anime_id": 27364, "title": "冰菓", "name": "4 话行车路线", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2566, 36.1487]}, "properties": {"id": "S_27364_0008", "anime_id": 27364, "title": "冰菓", "name": "不动桥", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.7622, 35.7134]}, "properties": {"id": "S_27364_0009", "anime_id": 27364, "title": "冰菓", "name": "安田講堂", "place_type": "temple", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2567, 36.1459]}, "properties": {"id": "S_27364_0010", "anime_id": 27364, "title": "冰菓", "name": "5 话场景（寄信处）", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2575, 36.1456]}, "properties": {"id": "S_27364_0011", "anime_id": 27364, "title": "冰菓", "name": "OP1（水中阶梯？）", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2592, 36.1336]}, "properties": {"id": "S_27364_0012", "anime_id": 27364, "title": "冰菓", "name": "神社参道", "place_type": "shrine", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.552, 36.1909]}, "properties": {"id": "S_27364_0013", "anime_id": 27364, "title": "冰菓", "name": "アルプス街道平湯", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.5516, 36.1909]}, "properties": {"id": "S_27364_0014", "anime_id": 27364, "title": "冰菓", "name": "平湯バスターミナル足湯附近", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.5544, 36.1924]}, "properties": {"id": "S_27364_0015", "anime_id": 27364, "title": "冰菓", "name": "青山荘（理论位置）", "place_type": "hill_viewpoint", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.5526, 36.192]}, "properties": {"id": "S_27364_0016", "anime_id": 27364, "title": "冰菓", "name": "青山荘（馆内）", "place_type": "hill_viewpoint", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.5541, 36.1925]}, "properties": {"id": "S_27364_0017", "anime_id": 27364, "title": "冰菓", "name": "去温泉的路上", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.554, 36.1921]}, "properties": {"id": "S_27364_0018", "anime_id": 27364, "title": "冰菓", "name": "平湯民俗馆和平湯神社岔路口", "place_type": "shrine", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.5543, 36.1918]}, "properties": {"id": "S_27364_0019", "anime_id": 27364, "title": "冰菓", "name": "平湯の湯", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.3065, 36.3522]}, "properties": {"id": "S_27364_0020", "anime_id": 27364, "title": "冰菓", "name": "古丘町楚窝地区(?)", "place_type": "hill_viewpoint", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2572, 36.1537]}, "properties": {"id": "S_27364_0021", "anime_id": 27364, "title": "冰菓", "name": "恋合病院", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.256, 36.1382]}, "properties": {"id": "S_27364_0022", "anime_id": 27364, "title": "冰菓", "name": "8 话场景", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2567, 36.1457]}, "properties": {"id": "S_27364_0023", "anime_id": 27364, "title": "冰菓", "name": "9 话场景（八百屋）", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2596, 36.1416]}, "properties": {"id": "S_27364_0024", "anime_id": 27364, "title": "冰菓", "name": "喫茶一二三", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2578, 36.1422]}, "properties": {"id": "S_27364_0025", "anime_id": 27364, "title": "冰菓", "name": "本由2丁目", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2579, 36.145]}, "properties": {"id": "S_27364_0026", "anime_id": 27364, "title": "冰菓", "name": "宮川朝市", "place_type": "river", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2574, 36.1456]}, "properties": {"id": "S_27364_0027", "anime_id": 27364, "title": "冰菓", "name": "宮川河川敞", "place_type": "river", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2574, 36.1436]}, "properties": {"id": "S_27364_0028", "anime_id": 27364, "title": "冰菓", "name": "11 话场景（TOILET）", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.2318, 36.1578]}, "properties": {"id": "S_27364_0029", "anime_id": 27364, "title": "冰菓", "name": "11.5 话场景（市民游泳池）", "place_type": "other", "city": "高山市", "prefecture": "岐阜県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0863, 36.0187]}, "properties": {"id": "S_10440_0030", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "旧秩父橋", "place_type": "bridge", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0901, 35.9901]}, "properties": {"id": "S_10440_0031", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "羊山公園 見晴しの丘", "place_type": "hill_viewpoint", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0841, 36.0056]}, "properties": {"id": "S_10440_0032", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "定林寺脇", "place_type": "temple", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0849, 36.0038]}, "properties": {"id": "S_10440_0033", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "鹤见齿科脉 十字路", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0828, 35.9969]}, "properties": {"id": "S_10440_0034", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "秩父ふるさと館前 信号", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0839, 35.9956]}, "properties": {"id": "S_10440_0035", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "浅野靴店", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.085, 36.0006]}, "properties": {"id": "S_10440_0036", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "キンカ堂跡地正面の路地", "place_type": "temple", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0853, 36.0002]}, "properties": {"id": "S_10440_0037", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "公园", "place_type": "park", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0821, 35.9853]}, "properties": {"id": "S_10440_0038", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "西武秩父線高架下", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0822, 35.9855]}, "properties": {"id": "S_10440_0039", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "ソフトバンクショップ前", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0837, 35.9992]}, "properties": {"id": "S_10440_0040", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "たつみや", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0834, 35.9987]}, "properties": {"id": "S_10440_0041", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "秩父館", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0762, 35.995]}, "properties": {"id": "S_10440_0042", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "リスの置石", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0912, 36.0182]}, "properties": {"id": "S_10440_0043", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "蛙の置石", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0854, 35.9973]}, "properties": {"id": "S_10440_0044", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "秩父祁り会館横", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0837, 35.9951]}, "properties": {"id": "S_10440_0045", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "福島洋品店前", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0837, 36.0047]}, "properties": {"id": "S_10440_0046", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "定林寺そば", "place_type": "temple", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0848, 36.0056]}, "properties": {"id": "S_10440_0047", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "定林寺横空き地", "place_type": "temple", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0842, 36.0182]}, "properties": {"id": "S_10440_0048", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "新秩父橋奥斜面", "place_type": "bridge", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0859, 36.0188]}, "properties": {"id": "S_10440_0049", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "第二秩父橋西", "place_type": "bridge", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0885, 35.9961]}, "properties": {"id": "S_10440_0050", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "ウニクス秩父の店舗パステル", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0841, 35.9966]}, "properties": {"id": "S_10440_0051", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "秩父神社前", "place_type": "shrine", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.319, 35.851]}, "properties": {"id": "S_10440_0052", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "飯能驿ホーム", "place_type": "station", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0885, 35.9945]}, "properties": {"id": "S_10440_0053", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "モンマートいのうえ", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0853, 36.0064]}, "properties": {"id": "S_10440_0054", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "定林寺近くの公园", "place_type": "temple", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.083, 36.0048]}, "properties": {"id": "S_10440_0055", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "峰寿司前", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0765, 35.9956]}, "properties": {"id": "S_10440_0056", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "秩父第一病院前", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0852, 36.0045]}, "properties": {"id": "S_10440_0057", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "郵政厅舍裸", "place_type": "other", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.0842, 36.0056]}, "properties": {"id": "S_10440_0058", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "定林寺境内", "place_type": "temple", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [139.1004, 36.0073]}, "properties": {"id": "S_10440_0059", "anime_id": 10440, "title": "我们仍未知道那天所看见的花的名字。", "name": "秩父圣地公园", "place_type": "park", "city": "秩父市", "prefecture": "埼玉県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.584, 35.3363]}, "properties": {"id": "S_207195_0060", "anime_id": 207195, "title": "摇曳露营△", "name": "まかいの牧場", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.5847, 35.3416]}, "properties": {"id": "S_207195_0061", "anime_id": 207195, "title": "摇曳露营△", "name": "富士山YMCA駐車場 附近", "place_type": "hill_viewpoint", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.5883, 35.3408]}, "properties": {"id": "S_207195_0062", "anime_id": 207195, "title": "摇曳露营△", "name": "国道139号线（YMCA入口前）", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.5209, 35.1453]}, "properties": {"id": "S_207195_0063", "anime_id": 207195, "title": "摇曳露营△", "name": "新东名高速道路新清水IC", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.2496, 35.9427]}, "properties": {"id": "S_207195_0064", "anime_id": 207195, "title": "摇曳露营△", "name": "县道175＠线", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.249, 35.943]}, "properties": {"id": "S_207195_0065", "anime_id": 207195, "title": "摇曳露营△", "name": "八が屳エコーライン", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.1298, 35.977]}, "properties": {"id": "S_207195_0066", "anime_id": 207195, "title": "摇曳露营△", "name": "杖突峙パノラマ展望台", "place_type": "hill_viewpoint", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.0952, 35.879]}, "properties": {"id": "S_207195_0067", "anime_id": 207195, "title": "摇曳露营△", "name": "国道152号线 道标", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.465, 35.5778]}, "properties": {"id": "S_207195_0068", "anime_id": 207195, "title": "摇曳露营△", "name": "县道426＠线", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.4404, 35.661]}, "properties": {"id": "S_207195_0069", "anime_id": 207195, "title": "摇曳露营△", "name": "ローソン南アルプス街道店", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.4276, 35.6575]}, "properties": {"id": "S_207195_0070", "anime_id": 207195, "title": "摇曳露营△", "name": "塔泽入口交差点", "place_type": "intersection", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.385, 35.638]}, "properties": {"id": "S_207195_0071", "anime_id": 207195, "title": "摇曳露营△", "name": "县道206＠线", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.371, 35.6355]}, "properties": {"id": "S_207195_0072", "anime_id": 207195, "title": "摇曳露营△", "name": "瀮户大桥", "place_type": "bridge", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.3696, 35.6354]}, "properties": {"id": "S_207195_0073", "anime_id": 207195, "title": "摇曳露营△", "name": "岩园館", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.3455, 35.6355]}, "properties": {"id": "S_207195_0074", "anime_id": 207195, "title": "摇曳露营△", "name": "夜叉神の茶屋", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.3454, 35.6356]}, "properties": {"id": "S_207195_0075", "anime_id": 207195, "title": "摇曳露营△", "name": "夜叉神峠登山口", "place_type": "hill_viewpoint", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.9124, 35.7388]}, "properties": {"id": "S_207195_0076", "anime_id": 207195, "title": "摇曳露营△", "name": "县道756＠线(女体入口驿附近)", "place_type": "station", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.9349, 35.7414]}, "properties": {"id": "S_207195_0077", "anime_id": 207195, "title": "摇曳露营△", "name": "コンビニ", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.896, 35.7351]}, "properties": {"id": "S_207195_0078", "anime_id": 207195, "title": "摇曳露营△", "name": "早太郎おみくじ", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.8955, 35.7348]}, "properties": {"id": "S_207195_0079", "anime_id": 207195, "title": "摇曳露营△", "name": "早太郎像", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.8956, 35.7347]}, "properties": {"id": "S_207195_0080", "anime_id": 207195, "title": "摇曳露营△", "name": "靈犬早太郎の墓", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.8116, 35.78]}, "properties": {"id": "S_207195_0081", "anime_id": 207195, "title": "摇曳露营△", "name": "千畳敟カール", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.888, 35.7436]}, "properties": {"id": "S_207195_0082", "anime_id": 207195, "title": "摇曳露营△", "name": "早太郎温泉前", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.8882, 35.7441]}, "properties": {"id": "S_207195_0083", "anime_id": 207195, "title": "摇曳露营△", "name": "ミニソースかつ丼", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.8881, 35.744]}, "properties": {"id": "S_207195_0084", "anime_id": 207195, "title": "摇曳露营△", "name": "梦の中のなでしこ", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.9958, 35.7186]}, "properties": {"id": "S_207195_0085", "anime_id": 207195, "title": "摇曳露营△", "name": "县道210号线", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [137.9851, 35.671]}, "properties": {"id": "S_207195_0086", "anime_id": 207195, "title": "摇曳露营△", "name": "阵马形山 南阿尔卑斯展望台前", "place_type": "hill_viewpoint", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.4556, 35.4843]}, "properties": {"id": "S_207195_0087", "anime_id": 207195, "title": "摇曳露营△", "name": "峡南橋", "place_type": "bridge", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.456, 35.4838]}, "properties": {"id": "S_207195_0088", "anime_id": 207195, "title": "摇曳露营△", "name": "峡南橋东訹", "place_type": "bridge", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [138.4681, 35.4253]}, "properties": {"id": "S_207195_0089", "anime_id": 207195, "title": "摇曳露营△", "name": "国道300号", "place_type": "other", "city": "山梨县", "prefecture": "山梨県", "sensitive": false}}]};
+/* ── Config ─────────────────────────────────────────── */
+const ANIME_COLOR={27364:'#f97316',10440:'#22d3ee',207195:'#a3e635'};
+const ANIME_NAME ={27364:'冰菓',10440:'未闻花名',207195:'摇曳露营△'};
+const PLACE_TYPE_ZH={
+  shrine:'神社·庙宇',temple:'寺院',bridge:'桥梁',station:'车站',
+  park:'公园',hill_viewpoint:'山地景观',river:'河流水岸',
+  school:'学校',shopping_street:'商业街',intersection:'路口',other:'其他'
+};
 
-// ── 旅游数据 ─────────────────────────────────────────────
-const TOUR_DATA = [
-  {anime_id:27364,  title:'冰菓',      year:2012, rating:8.2, score:7.85},
-  {anime_id:10440,  title:'未闻花名',  year:2011, rating:7.5, score:7.83},
-  {anime_id:207195, title:'摇曳露营△', year:2018, rating:8.2, score:6.59},
+/* ── Compare data ────────────────────────────────────── */
+const COMPARE_SITES = [
+  {
+    id:'S_27364_0002', anime_id:27364, city:'高山市 · 岐阜',
+    name:'本町商店街（OP1 场景）', place_type:'shopping_street',
+    anime_img:'https://image.anitabi.cn/user/1079/bangumi/27364/points/7ek5c0rz-1714998249396.jpg?plan=h360',
+    gsv_img:'img/gsv/S_27364_0002_000.jpg', gsv_dir:'正北 0°',
+    score:8.38, note:'动漫里的商店街停车场，实地是保存完好的町家老街'
+  },
+  {
+    id:'S_27364_0004', anime_id:27364, city:'高山市 · 岐阜',
+    name:'鍛冶橋交差点', place_type:'bridge',
+    anime_img:'https://image.anitabi.cn/user/0/bangumi/27364/points/2.jpg?plan=h360',
+    gsv_img:'img/gsv/S_27364_0004_090.jpg', gsv_dir:'正东 90°',
+    score:9.08, note:'高山市商业主干道，两侧餐厅土产店密集，旅游服务评分 9.08'
+  },
+  {
+    id:'S_27364_0026', anime_id:27364, city:'高山市 · 岐阜',
+    name:'宮川朝市', place_type:'river',
+    anime_img:'https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c0ff-1673008080221.jpg?plan=h360',
+    gsv_img:'img/gsv/S_27364_0026_000.jpg', gsv_dir:'正北 0°',
+    score:null, note:'宮川河岸早市，柳树与传统民家沿河排列，动漫场景高度还原'
+  },
+  {
+    id:'S_10440_0030', anime_id:10440, city:'秩父市 · 埼玉',
+    name:'旧秩父橋', place_type:'bridge',
+    anime_img:'https://image.anitabi.cn/user/1000/bangumi/10440/points/a4yyy6kt-1673007748617.jpg?plan=h360',
+    gsv_img:'img/gsv/S_10440_0030_000.jpg', gsv_dir:'正北 0°',
+    score:null, note:'粉丝最常打卡的标志性大桥，动漫多次出现的关键场景'
+  },
+  {
+    id:'S_10440_0051', anime_id:10440, city:'秩父市 · 埼玉',
+    name:'秩父神社前', place_type:'shrine',
+    anime_img:'https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy85j-1711795101438.jpg?plan=h360',
+    gsv_img:'img/gsv/S_10440_0051_090.jpg', gsv_dir:'正东 90°',
+    score:null, note:'石灯笼·参道围栏·大树，典型下町神社空间，动漫多次取景'
+  },
+  {
+    id:'S_207195_0069', anime_id:207195, city:'南アルプス市 · 山梨',
+    name:'ローソン 南アルプス街道店', place_type:'other',
+    anime_img:'https://image.anitabi.cn/points/207195/71f4bfca_1719910584645.jpg?plan=h360',
+    gsv_img:'img/gsv/S_207195_0069_000.jpg', gsv_dir:'正北 0°',
+    score:null, note:'开阔公路 + 山地背景的小镇便利店，志摩凛骑车途经场景的原型'
+  },
+  {
+    id:'S_207195_0075', anime_id:207195, city:'南アルプス市 · 山梨',
+    name:'夜叉神峠登山口', place_type:'hill_viewpoint',
+    anime_img:'https://image.anitabi.cn/points/207195/3dpxwps_1754372981750.jpg?plan=h360',
+    gsv_img:'img/gsv/S_207195_0075_000.jpg', gsv_dir:'正北 0°',
+    score:null, note:'岩石·山道入口·木质告示牌，郊野户外型圣地，与高山市商业圣地形成鲜明对比'
+  },
 ];
 
-// ── 渲染圣地点位 ──────────────────────────────────────────
-const layerGroup = L.layerGroup().addTo(map);
-
-SITES.features.forEach(f => {
-  const p = f.properties;
-  const [lon, lat] = f.geometry.coordinates;
-  const color = ANIME_COLOR[p.anime_id] || '#888';
-  const m = makeMarker(lat, lon, color, 7);
-  const ptZh = PLACE_TYPE_ZH[p.place_type] || '其他';
-  m.bindPopup(
-    `<b>${p.name}</b>` +
-    `<small>【${ANIME_NAME[p.anime_id]}】${p.city} · ${p.prefecture}</small><br>` +
-    `<small>类型：${ptZh}${p.sensitive ? '　⚠️ 敏感地点' : ''}</small>`
-  );
-  m.on('click', () => showInfo(p, ptZh));
-  m.addTo(layerGroup);
+/* ── Build compare cards ─────────────────────────────── */
+const grid = document.getElementById('compare-grid');
+COMPARE_SITES.forEach(s=>{
+  const color = ANIME_COLOR[s.anime_id];
+  const ptZh  = PLACE_TYPE_ZH[s.place_type] || '其他';
+  const scoreHtml = s.score
+    ? `<span class="score-badge">旅游服务评分 <span class="score-val">${s.score}</span>/10</span>`
+    : '';
+  grid.insertAdjacentHTML('beforeend', `
+    <div class="ccard">
+      <div class="ccard-head">
+        <div class="anime-dot" style="background:${color}"></div>
+        <span class="site-name">${s.name}</span>
+        <span class="city-tag">${s.city}</span>
+      </div>
+      <div class="ccard-body">
+        <div class="ccard-col">
+          <div class="col-label">
+            <span class="badge-sm badge-anime">动漫帧</span>
+            anitabi 收录场景截图
+          </div>
+          <img src="${s.anime_img}" alt="动漫帧 ${s.name}" loading="lazy"
+               onerror="this.style.background='#1a1d27';this.alt='图片加载失败'">
+        </div>
+        <div class="ccard-col">
+          <div class="col-label">
+            <span class="badge-sm badge-gsv">街景</span>
+            Google Street View · ${s.gsv_dir}
+          </div>
+          <img src="${s.gsv_img}" alt="街景 ${s.name}" loading="lazy">
+        </div>
+      </div>
+      <div class="ccard-meta">
+        <span class="tag">${ANIME_NAME[s.anime_id]}</span>
+        <span class="tag" style="background:#2a2d3e;color:#9ca3af">${ptZh}</span>
+        <span style="font-size:.73rem;color:var(--muted);margin-left:.1rem">${s.note}</span>
+        ${scoreHtml}
+      </div>
+    </div>`);
 });
 
-function showInfo(p, ptZh){
-  const cls = PLACE_TYPE_CLASS[p.place_type] || 'pt-other';
-  document.getElementById('site-info').innerHTML = `
+/* ── Map ─────────────────────────────────────────────── */
+const map = L.map('map',{center:[36.1,138.2],zoom:7});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19
+}).addTo(map);
+
+/* GSV data lookup */
+const GSV_SITES = {};
+COMPARE_SITES.forEach(s=>{ GSV_SITES[s.id]=s; });
+
+const SITES = {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2581,36.1566]},"properties":{"id":"S_27364_0000","anime_id":27364,"title":"冰菓","name":"上学道","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2579,36.1563]},"properties":{"id":"S_27364_0001","anime_id":27364,"title":"冰菓","name":"神山高校","place_type":"school","city":"高山市","prefecture":"岐阜県","sensitive":true}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2568,36.1454]},"properties":{"id":"S_27364_0002","anime_id":27364,"title":"冰菓","name":"本町商店街","place_type":"shopping_street","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2582,36.1411]},"properties":{"id":"S_27364_0003","anime_id":27364,"title":"冰菓","name":"猫鱼雕像","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2575,36.1429]},"properties":{"id":"S_27364_0004","anime_id":27364,"title":"冰菓","name":"鍛冶橋交差点","place_type":"bridge","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.256,36.1379]},"properties":{"id":"S_27364_0005","anime_id":27364,"title":"冰菓","name":"神山神社石狮","place_type":"shrine","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2578,36.1425]},"properties":{"id":"S_27364_0006","anime_id":27364,"title":"冰菓","name":"猫鱼","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2652,36.1414]},"properties":{"id":"S_27364_0007","anime_id":27364,"title":"冰菓","name":"4话行车路线","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2566,36.1487]},"properties":{"id":"S_27364_0008","anime_id":27364,"title":"冰菓","name":"不动桥","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.7622,35.7134]},"properties":{"id":"S_27364_0009","anime_id":27364,"title":"冰菓","name":"安田講堂","place_type":"temple","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2567,36.1459]},"properties":{"id":"S_27364_0010","anime_id":27364,"title":"冰菓","name":"5话场景（寄信处）","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2575,36.1456]},"properties":{"id":"S_27364_0011","anime_id":27364,"title":"冰菓","name":"OP1（水中阶梯）","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2592,36.1336]},"properties":{"id":"S_27364_0012","anime_id":27364,"title":"冰菓","name":"神社参道","place_type":"shrine","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.552,36.1909]},"properties":{"id":"S_27364_0013","anime_id":27364,"title":"冰菓","name":"アルプス街道平湯","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5516,36.1909]},"properties":{"id":"S_27364_0014","anime_id":27364,"title":"冰菓","name":"平湯バスターミナル足湯附近","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5544,36.1924]},"properties":{"id":"S_27364_0015","anime_id":27364,"title":"冰菓","name":"青山荘（理论位置）","place_type":"hill_viewpoint","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5526,36.192]},"properties":{"id":"S_27364_0016","anime_id":27364,"title":"冰菓","name":"青山荘（馆内）","place_type":"hill_viewpoint","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5541,36.1925]},"properties":{"id":"S_27364_0017","anime_id":27364,"title":"冰菓","name":"去温泉的路上","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.554,36.1921]},"properties":{"id":"S_27364_0018","anime_id":27364,"title":"冰菓","name":"平湯民俗馆神社岔路口","place_type":"shrine","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5543,36.1918]},"properties":{"id":"S_27364_0019","anime_id":27364,"title":"冰菓","name":"平湯の湯","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.3065,36.3522]},"properties":{"id":"S_27364_0020","anime_id":27364,"title":"冰菓","name":"古丘町楢窪地区","place_type":"hill_viewpoint","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2572,36.1537]},"properties":{"id":"S_27364_0021","anime_id":27364,"title":"冰菓","name":"恋合病院","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.256,36.1382]},"properties":{"id":"S_27364_0022","anime_id":27364,"title":"冰菓","name":"8话场景","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2567,36.1457]},"properties":{"id":"S_27364_0023","anime_id":27364,"title":"冰菓","name":"9话场景（八百屋）","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2596,36.1416]},"properties":{"id":"S_27364_0024","anime_id":27364,"title":"冰菓","name":"喫茶一二三","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2578,36.1422]},"properties":{"id":"S_27364_0025","anime_id":27364,"title":"冰菓","name":"本町2丁目","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2579,36.145]},"properties":{"id":"S_27364_0026","anime_id":27364,"title":"冰菓","name":"宮川朝市","place_type":"river","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2574,36.1456]},"properties":{"id":"S_27364_0027","anime_id":27364,"title":"冰菓","name":"宮川河川敷","place_type":"river","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2574,36.1436]},"properties":{"id":"S_27364_0028","anime_id":27364,"title":"冰菓","name":"11话场景","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2318,36.1578]},"properties":{"id":"S_27364_0029","anime_id":27364,"title":"冰菓","name":"11.5话市民游泳池","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0863,36.0187]},"properties":{"id":"S_10440_0030","anime_id":10440,"title":"未闻花名","name":"旧秩父橋","place_type":"bridge","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0901,35.9901]},"properties":{"id":"S_10440_0031","anime_id":10440,"title":"未闻花名","name":"羊山公園見晴しの丘","place_type":"hill_viewpoint","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0841,36.0056]},"properties":{"id":"S_10440_0032","anime_id":10440,"title":"未闻花名","name":"定林寺脇","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0849,36.0038]},"properties":{"id":"S_10440_0033","anime_id":10440,"title":"未闻花名","name":"鶴見歯科脇十字路","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0828,35.9969]},"properties":{"id":"S_10440_0034","anime_id":10440,"title":"未闻花名","name":"秩父ふるさと館前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0839,35.9956]},"properties":{"id":"S_10440_0035","anime_id":10440,"title":"未闻花名","name":"浅野靴店","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.085,36.0006]},"properties":{"id":"S_10440_0036","anime_id":10440,"title":"未闻花名","name":"キンカ堂跡地路地","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0853,36.0002]},"properties":{"id":"S_10440_0037","anime_id":10440,"title":"未闻花名","name":"公园","place_type":"park","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0821,35.9853]},"properties":{"id":"S_10440_0038","anime_id":10440,"title":"未闻花名","name":"西武秩父線高架下","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0822,35.9855]},"properties":{"id":"S_10440_0039","anime_id":10440,"title":"未闻花名","name":"ソフトバンクショップ前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0837,35.9992]},"properties":{"id":"S_10440_0040","anime_id":10440,"title":"未闻花名","name":"たつみや","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0834,35.9987]},"properties":{"id":"S_10440_0041","anime_id":10440,"title":"未闻花名","name":"秩父館","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0762,35.995]},"properties":{"id":"S_10440_0042","anime_id":10440,"title":"未闻花名","name":"リスの置石","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0912,36.0182]},"properties":{"id":"S_10440_0043","anime_id":10440,"title":"未闻花名","name":"蛙の置石","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0854,35.9973]},"properties":{"id":"S_10440_0044","anime_id":10440,"title":"未闻花名","name":"秩父祭り会館横","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0837,35.9951]},"properties":{"id":"S_10440_0045","anime_id":10440,"title":"未闻花名","name":"福島洋品店前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0837,36.0047]},"properties":{"id":"S_10440_0046","anime_id":10440,"title":"未闻花名","name":"定林寺そば","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0848,36.0056]},"properties":{"id":"S_10440_0047","anime_id":10440,"title":"未闻花名","name":"定林寺横空き地","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0842,36.0182]},"properties":{"id":"S_10440_0048","anime_id":10440,"title":"未闻花名","name":"新秩父橋奥斜面","place_type":"bridge","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0859,36.0188]},"properties":{"id":"S_10440_0049","anime_id":10440,"title":"未闻花名","name":"第二秩父橋西","place_type":"bridge","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0885,35.9961]},"properties":{"id":"S_10440_0050","anime_id":10440,"title":"未闻花名","name":"ウニクス秩父パステル","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0841,35.9966]},"properties":{"id":"S_10440_0051","anime_id":10440,"title":"未闻花名","name":"秩父神社前","place_type":"shrine","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.319,35.851]},"properties":{"id":"S_10440_0052","anime_id":10440,"title":"未闻花名","name":"飯能駅ホーム","place_type":"station","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0885,35.9945]},"properties":{"id":"S_10440_0053","anime_id":10440,"title":"未闻花名","name":"モンマートいのうえ","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0853,36.0064]},"properties":{"id":"S_10440_0054","anime_id":10440,"title":"未闻花名","name":"定林寺近くの公园","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.083,36.0048]},"properties":{"id":"S_10440_0055","anime_id":10440,"title":"未闻花名","name":"峰寿司前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0765,35.9956]},"properties":{"id":"S_10440_0056","anime_id":10440,"title":"未闻花名","name":"秩父第一病院前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0852,36.0045]},"properties":{"id":"S_10440_0057","anime_id":10440,"title":"未闻花名","name":"郵政庁舎裏","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0842,36.0056]},"properties":{"id":"S_10440_0058","anime_id":10440,"title":"未闻花名","name":"定林寺境内","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.1004,36.0073]},"properties":{"id":"S_10440_0059","anime_id":10440,"title":"未闻花名","name":"秩父聖地公園","place_type":"park","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.584,35.3363]},"properties":{"id":"S_207195_0060","anime_id":207195,"title":"摇曳露营△","name":"まかいの牧場","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.5847,35.3416]},"properties":{"id":"S_207195_0061","anime_id":207195,"title":"摇曳露营△","name":"富士山YMCA駐車場附近","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.5883,35.3408]},"properties":{"id":"S_207195_0062","anime_id":207195,"title":"摇曳露营△","name":"国道139号線YMCA入口前","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.5209,35.1453]},"properties":{"id":"S_207195_0063","anime_id":207195,"title":"摇曳露营△","name":"新東名高速新清水IC","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.2496,35.9427]},"properties":{"id":"S_207195_0064","anime_id":207195,"title":"摇曳露营△","name":"県道17号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.249,35.943]},"properties":{"id":"S_207195_0065","anime_id":207195,"title":"摇曳露营△","name":"八ヶ岳エコーライン","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.1298,35.977]},"properties":{"id":"S_207195_0066","anime_id":207195,"title":"摇曳露营△","name":"杖突峠パノラマ展望台","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.0952,35.879]},"properties":{"id":"S_207195_0067","anime_id":207195,"title":"摇曳露营△","name":"国道152号線道標","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.465,35.5778]},"properties":{"id":"S_207195_0068","anime_id":207195,"title":"摇曳露营△","name":"県道42号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4404,35.661]},"properties":{"id":"S_207195_0069","anime_id":207195,"title":"摇曳露营△","name":"ローソン南アルプス街道店","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4276,35.6575]},"properties":{"id":"S_207195_0070","anime_id":207195,"title":"摇曳露营△","name":"塩沢入口交差点","place_type":"intersection","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.385,35.638]},"properties":{"id":"S_207195_0071","anime_id":207195,"title":"摇曳露营△","name":"県道20号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.371,35.6355]},"properties":{"id":"S_207195_0072","anime_id":207195,"title":"摇曳露营△","name":"瀬戸大橋","place_type":"bridge","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.3696,35.6354]},"properties":{"id":"S_207195_0073","anime_id":207195,"title":"摇曳露营△","name":"岩園館","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.3455,35.6355]},"properties":{"id":"S_207195_0074","anime_id":207195,"title":"摇曳露营△","name":"夜叉神の茶屋","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.3454,35.6356]},"properties":{"id":"S_207195_0075","anime_id":207195,"title":"摇曳露营△","name":"夜叉神峠登山口","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9124,35.7388]},"properties":{"id":"S_207195_0076","anime_id":207195,"title":"摇曳露营△","name":"県道75号線女体入口駅","place_type":"station","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9349,35.7414]},"properties":{"id":"S_207195_0077","anime_id":207195,"title":"摇曳露营△","name":"コンビニ","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.896,35.7351]},"properties":{"id":"S_207195_0078","anime_id":207195,"title":"摇曳露营△","name":"早太郎おみくじ","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8955,35.7348]},"properties":{"id":"S_207195_0079","anime_id":207195,"title":"摇曳露营△","name":"早太郎像","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8956,35.7347]},"properties":{"id":"S_207195_0080","anime_id":207195,"title":"摇曳露营△","name":"霊犬早太郎の墓","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8116,35.78]},"properties":{"id":"S_207195_0081","anime_id":207195,"title":"摇曳露营△","name":"千畳敷カール","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.888,35.7436]},"properties":{"id":"S_207195_0082","anime_id":207195,"title":"摇曳露营△","name":"早太郎温泉前","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8882,35.7441]},"properties":{"id":"S_207195_0083","anime_id":207195,"title":"摇曳露营△","name":"ミニソースかつ丼","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8881,35.744]},"properties":{"id":"S_207195_0084","anime_id":207195,"title":"摇曳露营△","name":"夢の中のなでしこ","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9958,35.7186]},"properties":{"id":"S_207195_0085","anime_id":207195,"title":"摇曳露营△","name":"県道210号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9851,35.671]},"properties":{"id":"S_207195_0086","anime_id":207195,"title":"摇曳露营△","name":"陣馬形山南アルプス展望台","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4556,35.4843]},"properties":{"id":"S_207195_0087","anime_id":207195,"title":"摇曳露营△","name":"峡南橋","place_type":"bridge","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.456,35.4838]},"properties":{"id":"S_207195_0088","anime_id":207195,"title":"摇曳露营△","name":"峡南橋東詰","place_type":"bridge","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4681,35.4253]},"properties":{"id":"S_207195_0089","anime_id":207195,"title":"摇曳露营△","name":"国道300号","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}}]};
+
+SITES.features.forEach(f=>{
+  const p=f.properties;
+  const [lon,lat]=f.geometry.coordinates;
+  const color=ANIME_COLOR[p.anime_id]||'#888';
+  const hasGSV = !!GSV_SITES[p.id];
+  const m=L.circleMarker([lat,lon],{
+    radius: hasGSV ? 9 : 6,
+    fillColor:color, color: hasGSV ? '#fff' : color,
+    weight: hasGSV ? 2 : 0.8, opacity:.8, fillOpacity:.85
+  });
+  const ptZh=PLACE_TYPE_ZH[p.place_type]||'其他';
+  m.bindPopup(`<b>${p.name}</b><small>【${ANIME_NAME[p.anime_id]}】${p.city}<br>类型：${ptZh}${p.sensitive?' ⚠️ 敏感':''}</small>`);
+  m.on('click',()=>showInfo(p,ptZh,hasGSV));
+  m.addTo(map);
+});
+
+function showInfo(p,ptZh,hasGSV){
+  const gsv = GSV_SITES[p.id];
+  let imgHtml='';
+  if(gsv){
+    imgHtml=`
+      <div class="img-pair" style="margin-top:.5rem">
+        <figure>
+          <img src="${gsv.anime_img}" loading="lazy" onerror="this.style.display='none'">
+          <figcaption>动漫帧</figcaption>
+        </figure>
+        <figure>
+          <img src="${gsv.gsv_img}" loading="lazy">
+          <figcaption>街景 ${gsv.gsv_dir}</figcaption>
+        </figure>
+      </div>
+      <p style="font-size:.72rem;color:var(--muted);margin-top:.4rem;line-height:1.5">${gsv.note}</p>`;
+  }
+  document.getElementById('site-info').innerHTML=`
     <div class="info-card">
       <div class="card-title">${p.name}</div>
       <table>
         <tr><td>作品</td><td><span class="tag">${ANIME_NAME[p.anime_id]}</span></td></tr>
-        <tr><td>地点类型</td><td><span class="tag ${cls}">${ptZh}</span></td></tr>
-        <tr><td>城市</td><td>${p.city}・${p.prefecture}</td></tr>
-        <tr><td>编号</td><td>${p.id}</td></tr>
-        ${p.sensitive ? '<tr><td></td><td><span class="tag" style="background:#ef444422;color:#ef4444">⚠ 敏感地点</span></td></tr>' : ''}
+        <tr><td>类型</td><td>${ptZh}</td></tr>
+        <tr><td>城市</td><td>${p.city}</td></tr>
       </table>
+      ${imgHtml}
+      ${!hasGSV?'<p style="font-size:.72rem;color:var(--muted);margin-top:.4rem">→ 切换「圣地对比」标签查看精选对比</p>':''}
     </div>`;
 }
 
-// ── Chart.js 旅游转化评分 ─────────────────────────────────
-const ctx = document.getElementById('tourChart').getContext('2d');
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: TOUR_DATA.map(d => d.title),
-    datasets: [
-      {
-        label: '旅游转化评分',
-        data: TOUR_DATA.map(d => d.score),
-        backgroundColor: [
-          'rgba(249,115,22,.75)',
-          'rgba(34,211,238,.75)',
-          'rgba(163,230,53,.75)',
-        ],
-        borderRadius: 4,
-        borderSkipped: false,
-      },
-      {
-        label: 'Bangumi 评分',
-        data: TOUR_DATA.map(d => d.rating),
-        backgroundColor: 'rgba(255,255,255,.08)',
-        borderColor: 'rgba(255,255,255,.2)',
-        borderWidth: 1,
-        borderRadius: 4,
-        borderSkipped: false,
-      }
+/* ── Chart ───────────────────────────────────────────── */
+new Chart(document.getElementById('tourChart').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['冰菓','未闻花名','摇曳露营△'],
+    datasets:[
+      {label:'旅游转化评分',data:[7.85,7.83,6.59],
+       backgroundColor:['rgba(249,115,22,.75)','rgba(34,211,238,.75)','rgba(163,230,53,.75)'],
+       borderRadius:4,borderSkipped:false},
+      {label:'Bangumi评分',data:[8.2,7.5,8.2],
+       backgroundColor:'rgba(255,255,255,.07)',borderColor:'rgba(255,255,255,.18)',
+       borderWidth:1,borderRadius:4,borderSkipped:false}
     ]
   },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        labels:{color:'#9ca3af', font:{size:10}},
-      },
-      tooltip:{
-        callbacks:{
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}`
-        }
-      }
-    },
-    scales: {
-      x: {ticks:{color:'#9ca3af',font:{size:10}}, grid:{color:'#1f2435'}},
-      y: {
-        ticks:{color:'#9ca3af',font:{size:10}},
-        grid:{color:'#1f2435'},
-        min: 0, max: 10,
-      }
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#9ca3af',font:{size:10}}},
+             tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}`}}},
+    scales:{
+      x:{ticks:{color:'#9ca3af',font:{size:10}},grid:{color:'#1f2435'}},
+      y:{ticks:{color:'#9ca3af',font:{size:10}},grid:{color:'#1f2435'},min:0,max:10}
     }
   }
 });
