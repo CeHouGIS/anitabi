@@ -1,0 +1,575 @@
+[
+  {
+    "id": "ozj8t9728",
+    "cn": "上学道",
+    "name": "上学道",
+    "image": "https://image.anitabi.cn/user/2111/bangumi/27364/points/ozj8t9728-1728634530993.jpg?plan=h160",
+    "ep": 1,
+    "s": 3,
+    "geo": [
+      36.1566,
+      137.2581
+    ],
+    "origin": "Anitabi@双叶理央",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c0v9",
+    "name": "神山高校",
+    "image": "https://image.anitabi.cn/points/27364/7ek5c0v9.jpg?plan=h160",
+    "ep": 1,
+    "s": 14,
+    "geo": [
+      36.1563,
+      137.2579
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.156328%2C137.257948&z=17"
+  },
+  {
+    "id": "7ek5c0rz",
+    "name": "OP1 场景（本町4商店街駐車場）",
+    "image": "https://image.anitabi.cn/user/1079/bangumi/27364/points/7ek5c0rz-1714998249396.jpg?plan=h160",
+    "ep": 1,
+    "s": 281,
+    "geo": [
+      36.1454,
+      137.2568
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.145469%2C137.256835&z=17"
+  },
+  {
+    "id": "rno7fzcnt",
+    "name": "猫鱼雕像",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/rno7fzcnt-1736168349049.jpg?plan=h160",
+    "ep": 1,
+    "s": 284,
+    "geo": [
+      36.1411,
+      137.2582
+    ],
+    "origin": "Anitabi@pshow",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c0tg",
+    "name": "鍛冶橋交差点",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/2.jpg?plan=h160",
+    "ep": 1,
+    "s": 1522,
+    "geo": [
+      36.1429,
+      137.2575
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.142978%2C137.257551&z=17"
+  },
+  {
+    "id": "7emmn40i",
+    "name": "神山神社石狮",
+    "image": "https://image.anitabi.cn/points/27364/7emmn40i.jpg?plan=h160",
+    "ep": 2,
+    "s": 2,
+    "geo": [
+      36.1379,
+      137.256
+    ],
+    "origin": "Anitabi@卜卜口",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c04k",
+    "name": "猫鱼",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c04k-1673008391472.jpg?plan=h160",
+    "ep": 2,
+    "s": 99,
+    "geo": [
+      36.1425,
+      137.2578
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.142504%2C137.257803&z=17"
+  },
+  {
+    "id": "7ek5c0da",
+    "name": "4 话行车路线",
+    "image": "https://image.anitabi.cn/user/1079/bangumi/27364/points/7ek5c0da-1714998958624.jpg?plan=h160",
+    "ep": 4,
+    "s": 223,
+    "geo": [
+      36.1414,
+      137.2652
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.14147%2C137.265206&z=17"
+  },
+  {
+    "id": "59orvui2a",
+    "name": "不动桥",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/59orvui2a-1673008001802.jpg?plan=h160",
+    "ep": 4,
+    "s": 428,
+    "geo": [
+      36.1487,
+      137.2566
+    ],
+    "origin": "Anitabi@卜卜口",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "837zd8il8",
+    "name": "安田講堂",
+    "image": "https://image.anitabi.cn/points/27364/837zd8il8_1722728482677_cut.jpg?plan=h160",
+    "ep": 4,
+    "s": 618,
+    "geo": [
+      35.7134,
+      139.7622
+    ],
+    "origin": "Anitabi@月即别",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c062",
+    "name": "5 话场景（寄信处）",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c062-1719993523136.jpg?plan=h160",
+    "ep": 5,
+    "s": 1531,
+    "geo": [
+      36.1459,
+      137.2567
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.145941%2C137.256728&z=17"
+  },
+  {
+    "id": "ozk1ruc0l",
+    "cn": "OP1（水中阶梯？）",
+    "name": "OP1（水中阶梯？）",
+    "image": "https://image.anitabi.cn/user/2111/bangumi/27364/points/ozk1ruc0l-1728636268347.jpg?plan=h160",
+    "ep": "OP1",
+    "geo": [
+      36.1456,
+      137.2575
+    ],
+    "origin": "Anitabi@双叶理央",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c0v5",
+    "name": "神社参道",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c0v5-1673008129587.jpg?plan=h160",
+    "ep": 6,
+    "s": 159,
+    "geo": [
+      36.1336,
+      137.2592
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.133666%2C137.259206&z=17"
+  },
+  {
+    "id": "7ek5c0lp",
+    "name": "アルプス街道平湯",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/7ek5c0lp-1736166623236.jpg?plan=h160",
+    "ep": 7,
+    "s": 164,
+    "geo": [
+      36.1909,
+      137.552
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.190923%2C137.55202&z=17"
+  },
+  {
+    "id": "rnokbyeu4",
+    "name": "平湯バスターミナル足湯附近",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/rnokbyeu4-1736169079404.jpg?plan=h160",
+    "ep": 7,
+    "s": 172,
+    "geo": [
+      36.1909,
+      137.5516
+    ],
+    "origin": "Anitabi@pshow",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c066",
+    "cn": "青山荘",
+    "name": "青山荘（理论位置）",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/7ek5c066-1736166929114.jpg?plan=h160",
+    "ep": 7,
+    "s": 204,
+    "geo": [
+      36.1924,
+      137.5544
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.19249%2C137.554455&z=17"
+  },
+  {
+    "id": "7ek5c071",
+    "name": "青山荘（馆内）",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c071-1674098757238.jpg?plan=h160",
+    "ep": 7,
+    "s": 213,
+    "geo": [
+      36.192,
+      137.5526
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.192053%2C137.55261&z=17"
+  },
+  {
+    "id": "7ek5c0ke",
+    "name": "去温泉的路上",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/7ek5c0ke-1736168788845.jpg?plan=h160",
+    "ep": 7,
+    "s": 342,
+    "geo": [
+      36.1925,
+      137.5541
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.192514%2C137.554101&z=17"
+  },
+  {
+    "id": "7ek5c0jh",
+    "name": "平湯民俗館和平湯神社岔路口",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/7ek5c0jh-1736168676033.jpg?plan=h160",
+    "ep": 7,
+    "s": 385,
+    "geo": [
+      36.1921,
+      137.554
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.192133%2C137.554002&z=17"
+  },
+  {
+    "id": "rnohuhy2g",
+    "name": "平湯の湯",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/rnohuhy2g-1736168934829.jpg?plan=h160",
+    "ep": 7,
+    "s": 1130,
+    "geo": [
+      36.1918,
+      137.5543
+    ],
+    "origin": "Anitabi@pshow",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c0su",
+    "name": "古丘町楢窪地区(?)",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c0su-1674099099332.jpg?plan=h160",
+    "ep": 8,
+    "s": 512,
+    "geo": [
+      36.3522,
+      137.3065
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.352255%2C137.306598&z=17"
+  },
+  {
+    "id": "7ek5c0oh",
+    "name": "恋合病院",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c0oh-1674098984191.jpg?plan=h160",
+    "ep": 8,
+    "s": 1180,
+    "geo": [
+      36.1537,
+      137.2572
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.153777%2C137.257234&z=17"
+  },
+  {
+    "id": "7ek5c04j",
+    "name": "8 话场景",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c04j-1716746943691.jpg?plan=h160",
+    "ep": 8,
+    "s": 1274,
+    "geo": [
+      36.1382,
+      137.256
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.13826%2C137.256036&z=17"
+  },
+  {
+    "id": "7ek5c0p2",
+    "name": "9 话场景（八百屋）",
+    "image": "https://image.anitabi.cn/user/1073/bangumi/27364/points/7ek5c0p2-1732877170719.jpg?plan=h160",
+    "ep": 9,
+    "s": 1410,
+    "geo": [
+      36.1457,
+      137.2567
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.14577%2C137.256792&z=17"
+  },
+  {
+    "id": "7ek5c0ru",
+    "name": "喫茶一二三",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c0ru-1673008192510.jpg?plan=h160",
+    "ep": 10,
+    "s": 1,
+    "geo": [
+      36.1416,
+      137.2596
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.141637%2C137.259627&z=17"
+  },
+  {
+    "id": "7ek5c0tb",
+    "name": "本町2丁目",
+    "image": "https://image.anitabi.cn/user/1073/bangumi/27364/points/7ek5c0tb-1732877757354.jpg?plan=h160",
+    "ep": 10,
+    "s": 481,
+    "geo": [
+      36.1422,
+      137.2578
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.142246%2C137.257811&z=17"
+  },
+  {
+    "id": "7ek5c0ff",
+    "name": "宮川朝市",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c0ff-1673008080221.jpg?plan=h160",
+    "ep": 11,
+    "s": 102,
+    "geo": [
+      36.145,
+      137.2579
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.14509%2C137.257902&z=17"
+  },
+  {
+    "id": "7ek5c0vv",
+    "name": "宮川河川敷",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c0vv-1719993407384.jpg?plan=h160",
+    "ep": 11,
+    "s": 392,
+    "geo": [
+      36.1456,
+      137.2574
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.145601%2C137.257415&z=17"
+  },
+  {
+    "id": "7ek5c077",
+    "name": "11 话场景（TOILET）",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c077-1719993369584.jpg?plan=h160",
+    "ep": 11,
+    "s": 586,
+    "geo": [
+      36.1436,
+      137.2574
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.143604%2C137.257468&z=17"
+  },
+  {
+    "id": "7ek5c0iu",
+    "name": "11.5 话场景（市民游泳池）",
+    "image": "https://image.anitabi.cn/user/1073/bangumi/27364/points/7ek5c0iu-1732878110407.jpg?plan=h160",
+    "ep": "EP11.5",
+    "s": 308,
+    "geo": [
+      36.1578,
+      137.2318
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.157809%2C137.231882&z=17"
+  },
+  {
+    "id": "42bcmtp",
+    "name": "赤保木公園停车场门口",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/42bcmtp-1755857531158.jpg?plan=h160",
+    "ep": "EP11.5",
+    "s": 286,
+    "geo": [
+      36.1584,
+      137.2326
+    ],
+    "origin": "Anitabi@卜卜口",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c0br",
+    "name": "12 话场景（桥）",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/7ek5c0br-1765471151303.jpg?plan=h160",
+    "ep": 12,
+    "s": 47,
+    "geo": [
+      36.086,
+      137.2507
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.086017%2C137.250765&z=17"
+  },
+  {
+    "id": "7ek5c0bb",
+    "name": "荒楠神社",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c0bb-1673008157926.jpg?plan=h160",
+    "ep": 19,
+    "s": 85,
+    "geo": [
+      36.1328,
+      137.261
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.132884%2C137.261038&z=17"
+  },
+  {
+    "id": "rnnbjfvwp",
+    "cn": "日枝神社社务所",
+    "name": "日枝神社社務所",
+    "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/rnnbjfvwp-1736166443680.jpg?plan=h160",
+    "ep": 20,
+    "s": 344,
+    "geo": [
+      36.1327,
+      137.2613
+    ],
+    "origin": "Anitabi@pshow",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "7ek5c0is",
+    "name": "21 话场景（跨线桥）",
+    "image": "https://image.anitabi.cn/user/1073/bangumi/27364/points/7ek5c0is-1732884632338.jpg?plan=h160",
+    "ep": 21,
+    "s": 1320,
+    "geo": [
+      36.1383,
+      137.2515
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.138386%2C137.251575&z=17"
+  },
+  {
+    "id": "7ek5c0bn",
+    "name": "22 话场景（水无神社）",
+    "image": "https://image.anitabi.cn/user/1073/bangumi/27364/points/7ek5c0bn-1732885766093.jpg?plan=h160",
+    "ep": 22,
+    "s": 876,
+    "geo": [
+      36.0853,
+      137.2518
+    ],
+    "origin": "Google Maps",
+    "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.085315%2C137.251854&z=17"
+  },
+  {
+    "id": "mjon95r1d",
+    "cn": "卧龙樱",
+    "name": "卧龙樱",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/mjon95r1d-1722606201974.jpg?plan=h160",
+    "ep": 22,
+    "s": 1432,
+    "geo": [
+      36.0888,
+      137.2478
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "414wgnu",
+    "name": "バグパイプ",
+    "image": "https://image.anitabi.cn/user/2192/bangumi/27364/points/414wgnu-1755786192062.jpg?plan=h160",
+    "ep": 3,
+    "s": 14,
+    "geo": [
+      36.1411,
+      137.259
+    ],
+    "origin": "Anitabi@suichan1oshi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "415j01y",
+    "name": "古い町並（上三之町）",
+    "image": "https://image.anitabi.cn/user/2192/bangumi/27364/points/415j01y-1755787235989.jpg?plan=h160",
+    "ep": 10,
+    "s": 1,
+    "geo": [
+      36.1415,
+      137.2595
+    ],
+    "origin": "Anitabi@suichan1oshi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "e5ab45x",
+    "cn": "緞治橋交叉點",
+    "name": "緞治橋交叉點",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/e5ab45x-1777804987014.jpg?plan=h160",
+    "ep": "18",
+    "geo": [
+      36.143,
+      137.2576
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tohkn6rhs",
+    "name": "op中的大楼梯（绝版）",
+    "image": "https://image.anitabi.cn/points/27364/tohkn6rhs_1741883146482.jpg?plan=h160",
+    "ep": "OP1",
+    "geo": [
+      36.1447,
+      137.2579
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "os8idl",
+    "cn": "花里跨线桥东",
+    "name": "Hanazatokosen Bridge",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/os8idl-1748509061391.jpg?plan=h160",
+    "ep": 21,
+    "geo": [
+      36.1383,
+      137.2516
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "cwuduh0",
+    "cn": "岐阜县高山水位观测站",
+    "name": "岐阜県高山水位観測所",
+    "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/cwuduh0-1775118071002.jpg?plan=h160",
+    "ep": "OP",
+    "geo": [
+      36.1453,
+      137.2578
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "u3z4mo7nc",
+    "name": "一般​社団​法人​飛騨・​高山​観光​コンベンション​協会",
+    "image": "https://image.anitabi.cn/user/2192/bangumi/27364/points/u3z4mo7nc-1755786535729.jpg?plan=h160",
+    "geo": [
+      36.14,
+      137.2587
+    ],
+    "origin": "Anitabi@甜食伯爵",
+    "originURL": "https://anitabi.cn/"
+  }
+]

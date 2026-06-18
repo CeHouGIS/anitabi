@@ -1,0 +1,149 @@
+{
+  "id": 10440,
+  "cn": "我们仍未知道那天所看见的花的名字。",
+  "title": "あの日見た花の名前を僕達はまだ知らない。",
+  "city": "秩父市",
+  "cover": "https://image.anitabi.cn/bangumi/10440.jpg?plan=h160",
+  "color": "#002aaa",
+  "geo": [
+    36.002118,
+    139.087573
+  ],
+  "zoom": 13.5,
+  "modified": 1776826188957,
+  "litePoints": [
+    {
+      "id": "a4yyy6kt",
+      "cn": "旧秩父桥",
+      "name": "旧秩父橋",
+      "image": "https://image.anitabi.cn/user/1000/bangumi/10440/points/a4yyy6kt-1673007748617.jpg?plan=h160",
+      "ep": 1,
+      "s": 230,
+      "geo": [
+        36.0187,
+        139.0863
+      ],
+      "origin": "Anitabi@卜卜口",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy74a",
+      "name": "羊山公園 見晴しの丘",
+      "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a.jpg?plan=h160",
+      "ep": 1,
+      "s": 257,
+      "geo": [
+        35.9901,
+        139.0901
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy6k9",
+      "name": "定林寺脇",
+      "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy6k9-1672841804374.jpg?plan=h160",
+      "ep": 1,
+      "s": 259,
+      "geo": [
+        36.0056,
+        139.0841
+      ],
+      "origin": "Anitabi@大熊",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy6kq",
+      "name": "鶴見歯科脇 十字路",
+      "image": "https://image.anitabi.cn/points/10440/a4yyy6kq_1672646646367.jpg?plan=h160",
+      "ep": 1,
+      "s": 501,
+      "geo": [
+        36.0038,
+        139.0849
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy6ol",
+      "name": "秩父ふるさと館前 信号",
+      "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/1.jpg?plan=h160",
+      "ep": 1,
+      "s": 652,
+      "geo": [
+        35.9969,
+        139.0828
+      ],
+      "origin": "Anitabi@大熊",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy6xj",
+      "name": "浅野靴店",
+      "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy6xj-1743401468186.jpg?plan=h160",
+      "ep": 1,
+      "s": 921,
+      "geo": [
+        35.9956,
+        139.0839
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy756",
+      "name": "キンカ堂跡地正面の路地",
+      "image": "https://image.anitabi.cn/points/10440/a4yyy756_1672644800544.jpg?plan=h160",
+      "ep": 1,
+      "s": 923,
+      "geo": [
+        36.0006,
+        139.085
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy7jo",
+      "name": "公園",
+      "image": "https://image.anitabi.cn/points/10440/a4yyy7jo_1672644575655.jpg?plan=h160",
+      "ep": 1,
+      "s": 934,
+      "geo": [
+        36.0002,
+        139.0853
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy7z9",
+      "name": "西武秩父線高架下",
+      "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy7z9-1743420401874.jpg?plan=h160",
+      "ep": 2,
+      "s": 224,
+      "geo": [
+        35.9853,
+        139.0821
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "a4yyy7ot",
+      "name": "ソフトバンクショップ前",
+      "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/t.jpg?plan=h160",
+      "ep": 2,
+      "s": 244,
+      "geo": [
+        35.9855,
+        139.0822
+      ],
+      "origin": "Anitabi",
+      "originURL": "https://anitabi.cn/"
+    }
+  ],
+  "pointsLength": 94,
+  "imagesLength": 93
+}

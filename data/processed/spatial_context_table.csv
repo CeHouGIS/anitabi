@@ -1,0 +1,6 @@
+﻿point_id,is_anime_site,source_site_id,lat,lon,city,prefecture,place_type,distance_to_nearest_station_m,distance_to_nearest_bus_stop_m,restaurant_density_500m,cafe_density_500m,convenience_store_density_500m,hotel_density_1km,tourist_attraction_density_1km,shrine_density_500m,poi_total_500m,poi_total_1km,road_intersection_density_500m,distance_to_water_m,tourism_service_score
+S_27364_0000,1,S_27364_0000,36.1566,137.2581,高山市,岐阜県,other,,,,,,,,,,,,,0.0
+S_27364_0001,1,S_27364_0001,36.1563,137.2579,高山市,岐阜県,school,,,,,,,,,,,,,0.0
+S_27364_0002,1,S_27364_0002,36.1454,137.2568,高山市,岐阜県,shopping_street,686.6,950.1,66.0,25.0,4.0,44.0,35.0,4.0,179.0,413.0,,646.1,8.38
+S_27364_0003,1,S_27364_0003,36.1411,137.2582,高山市,岐阜県,other,622.5,726.1,77.0,28.0,7.0,44.0,35.0,3.0,241.0,410.0,,188.5,9.08
+S_27364_0004,1,S_27364_0004,36.1429,137.2575,高山市,岐阜県,bridge,593.1,94.2,91.0,33.0,6.0,46.0,35.0,3.0,268.0,428.0,,368.2,9.68

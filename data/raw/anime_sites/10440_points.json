@@ -1,0 +1,879 @@
+[
+  {
+    "id": "a4yyy6kt",
+    "cn": "旧秩父桥",
+    "name": "旧秩父橋",
+    "image": "https://image.anitabi.cn/user/1000/bangumi/10440/points/a4yyy6kt-1673007748617.jpg?plan=h160",
+    "ep": 1,
+    "s": 230,
+    "geo": [
+      36.0187,
+      139.0863
+    ],
+    "origin": "Anitabi@卜卜口",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy74a",
+    "name": "羊山公園 見晴しの丘",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a.jpg?plan=h160",
+    "ep": 1,
+    "s": 257,
+    "geo": [
+      35.9901,
+      139.0901
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy6k9",
+    "name": "定林寺脇",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy6k9-1672841804374.jpg?plan=h160",
+    "ep": 1,
+    "s": 259,
+    "geo": [
+      36.0056,
+      139.0841
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy6kq",
+    "name": "鶴見歯科脇 十字路",
+    "image": "https://image.anitabi.cn/points/10440/a4yyy6kq_1672646646367.jpg?plan=h160",
+    "ep": 1,
+    "s": 501,
+    "geo": [
+      36.0038,
+      139.0849
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy6ol",
+    "name": "秩父ふるさと館前 信号",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/1.jpg?plan=h160",
+    "ep": 1,
+    "s": 652,
+    "geo": [
+      35.9969,
+      139.0828
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy6xj",
+    "name": "浅野靴店",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy6xj-1743401468186.jpg?plan=h160",
+    "ep": 1,
+    "s": 921,
+    "geo": [
+      35.9956,
+      139.0839
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy756",
+    "name": "キンカ堂跡地正面の路地",
+    "image": "https://image.anitabi.cn/points/10440/a4yyy756_1672644800544.jpg?plan=h160",
+    "ep": 1,
+    "s": 923,
+    "geo": [
+      36.0006,
+      139.085
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7jo",
+    "name": "公園",
+    "image": "https://image.anitabi.cn/points/10440/a4yyy7jo_1672644575655.jpg?plan=h160",
+    "ep": 1,
+    "s": 934,
+    "geo": [
+      36.0002,
+      139.0853
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7z9",
+    "name": "西武秩父線高架下",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy7z9-1743420401874.jpg?plan=h160",
+    "ep": 2,
+    "s": 224,
+    "geo": [
+      35.9853,
+      139.0821
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7ot",
+    "name": "ソフトバンクショップ前",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/t.jpg?plan=h160",
+    "ep": 2,
+    "s": 244,
+    "geo": [
+      35.9855,
+      139.0822
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7n1",
+    "name": "たつみや",
+    "image": "https://image.anitabi.cn/points/10440/a4yyy7n1_1672642717771.jpg?plan=h160",
+    "ep": 2,
+    "s": 327,
+    "geo": [
+      35.9992,
+      139.0837
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7x3",
+    "name": "秩父館",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy7x3-1673184625038.jpg?plan=h160",
+    "ep": 2,
+    "s": 357,
+    "geo": [
+      35.9987,
+      139.0834
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7sx",
+    "name": "リスの置石",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/x.jpg?plan=h160",
+    "ep": 2,
+    "s": 480,
+    "geo": [
+      35.995,
+      139.0762
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7vx",
+    "name": "蛙の置石",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy7vx-1743425175774.jpg?plan=h160",
+    "ep": 2,
+    "s": 479,
+    "geo": [
+      36.0182,
+      139.0912
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy7e8",
+    "name": "秩父祭り会館横",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy7e8-1711795828208.jpg?plan=h160",
+    "ep": 2,
+    "s": 681,
+    "geo": [
+      35.9973,
+      139.0854
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyya94",
+    "name": "福島洋品店前",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/4.jpg?plan=h160",
+    "ep": 2,
+    "s": 498,
+    "geo": [
+      35.9951,
+      139.0837
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy895",
+    "name": "定林寺そば",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy895-1672838941194.jpg?plan=h160",
+    "ep": 3,
+    "s": 250,
+    "geo": [
+      36.0047,
+      139.0837
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8e5",
+    "name": "定林寺横空き地",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy8e5-1672841012519.jpg?plan=h160",
+    "ep": 3,
+    "s": 443,
+    "geo": [
+      36.0056,
+      139.0848
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy82u",
+    "name": "新秩父橋奥斜面",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy82u-1743425581728.jpg?plan=h160",
+    "ep": 3,
+    "s": 488,
+    "geo": [
+      36.0182,
+      139.0842
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy88z",
+    "name": "第二秩父橋西",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy88z-1673182464213.jpg?plan=h160",
+    "ep": 3,
+    "s": 511,
+    "geo": [
+      36.0188,
+      139.0859
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8jt",
+    "name": "ウニクス秩父の店舗パステル",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/7.jpg?plan=h160",
+    "ep": 3,
+    "s": 742,
+    "geo": [
+      35.9961,
+      139.0885
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy85j",
+    "name": "秩父神社前",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy85j-1711795101438.jpg?plan=h160",
+    "ep": 4,
+    "s": 880,
+    "geo": [
+      35.9966,
+      139.0841
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8a1",
+    "name": "飯能駅ホーム",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy8a1-1743422291118.jpg?plan=h160",
+    "ep": 5,
+    "s": 800,
+    "geo": [
+      35.851,
+      139.319
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8bb",
+    "name": "モンマートいのうえ",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/b.jpg?plan=h160",
+    "ep": 5,
+    "s": 535,
+    "geo": [
+      35.9945,
+      139.0885
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9dg",
+    "name": "定林寺近くの公園",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy9dg-1672840285441.jpg?plan=h160",
+    "ep": 6,
+    "s": 546,
+    "geo": [
+      36.0064,
+      139.0853
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9kc",
+    "name": "峰寿司前",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy9kc-1672839219044.jpg?plan=h160",
+    "ep": 6,
+    "s": 987,
+    "geo": [
+      36.0048,
+      139.083
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy985",
+    "name": "秩父第一病院前",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy985-1743420174835.jpg?plan=h160",
+    "ep": 7,
+    "s": 303,
+    "geo": [
+      35.9956,
+      139.0765
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8yq",
+    "name": "郵政庁舎裏",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy8yq-1672839746186.jpg?plan=h160",
+    "ep": 7,
+    "s": 312,
+    "geo": [
+      36.0045,
+      139.0852
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8yj",
+    "name": "定林寺境内",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy8yj-1672839927887.jpg?plan=h160",
+    "ep": 7,
+    "s": 757,
+    "geo": [
+      36.0056,
+      139.0842
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9sp",
+    "name": "秩父聖地公園",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy9sp-1743421987489.jpg?plan=h160",
+    "ep": 8,
+    "s": 839,
+    "geo": [
+      36.0073,
+      139.1004
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyya4b",
+    "name": "秩父駅前公園内",
+    "image": "https://image.anitabi.cn/points/10440/a4yyya4b_1672644327012.jpg?plan=h160",
+    "ep": 8,
+    "s": 1025,
+    "geo": [
+      36.0002,
+      139.0854
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9nj",
+    "name": "パーラーベガス前",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyy9nj-1743420288027.jpg?plan=h160",
+    "ep": 9,
+    "s": 417,
+    "geo": [
+      35.9935,
+      139.0834
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyyaah",
+    "name": "ベルク東街店駐車場",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/h.jpg?plan=h160",
+    "ep": 9,
+    "s": 459,
+    "geo": [
+      35.9934,
+      139.0834
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyya0a",
+    "name": "線路脇花火前",
+    "image": "https://image.anitabi.cn/points/10440/a4yyya0a_1672558007479.jpg?plan=h160",
+    "ep": 9,
+    "s": 617,
+    "geo": [
+      35.9969,
+      139.0852
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9x5",
+    "name": "自動販売機",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy9x5-1672838588334.jpg?plan=h160",
+    "ep": 9,
+    "s": 830,
+    "geo": [
+      36.0047,
+      139.084
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9tf",
+    "name": "旧秩父橋橋桁",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyy9tf-1673182753557.jpg?plan=h160",
+    "ep": 9,
+    "s": 1121,
+    "geo": [
+      36.0188,
+      139.0861
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyyb1n",
+    "name": "秩父橋河川敷",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyyb1n-1673182931636.jpg?plan=h160",
+    "ep": 22,
+    "s": 1274,
+    "geo": [
+      36.0188,
+      139.0859
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyyajb",
+    "name": "秩父ミューズパーク展望台",
+    "image": "https://image.anitabi.cn/points/10440/a4yyyajb_1672646174499.jpg?plan=h160",
+    "ep": 9,
+    "s": 1227,
+    "geo": [
+      36.0036,
+      139.0597
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybal",
+    "name": "御花畑駅横坂道",
+    "image": "https://image.anitabi.cn/points/10440/a4yyybal_1672551773406.jpg?plan=h160",
+    "ep": 10,
+    "s": 442,
+    "geo": [
+      35.9916,
+      139.084
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybak",
+    "name": "秩父橋横河川敷",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyybak-1743426826826.jpg?plan=h160",
+    "ep": 10,
+    "s": 773,
+    "geo": [
+      36.0166,
+      139.0852
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybrf",
+    "name": "発射台手前の路",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyybrf-1743426496260.jpg?plan=h160",
+    "ep": 10,
+    "s": 1248,
+    "geo": [
+      36.0468,
+      139.0313
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyyb7x",
+    "name": "椋（むく）神社前の道",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyyb7x-1743426607413.jpg?plan=h160",
+    "ep": 10,
+    "s": 1197,
+    "geo": [
+      36.0458,
+      139.0326
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybat",
+    "name": "発射台",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/a4yyybat-1742457652168.jpg?plan=h160",
+    "ep": 10,
+    "s": 1113,
+    "geo": [
+      36.0477,
+      139.031
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyyb73",
+    "name": "夜の定林寺境内",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyyb73-1672840675809.jpg?plan=h160",
+    "ep": 11,
+    "s": 125,
+    "geo": [
+      36.0055,
+      139.0841
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybq6",
+    "name": "龍石寺近くの川",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyybq6-1673181210183.jpg?plan=h160",
+    "ep": 11,
+    "s": 311,
+    "geo": [
+      36.0174,
+      139.0902
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybk3",
+    "name": "定林寺奥の道",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/a4yyybk3-1743427149247.jpg?plan=h160",
+    "ep": 11,
+    "s": 863,
+    "geo": [
+      36.0062,
+      139.0846
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybxb",
+    "name": "公園前",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyybxb-1672840789400.jpg?plan=h160",
+    "ep": 11,
+    "s": 864,
+    "geo": [
+      36.0064,
+      139.085
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyycon",
+    "name": "東吾野踏切",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyycon-1673185240518.jpg?plan=h160",
+    "ep": 11,
+    "s": 1322,
+    "geo": [
+      35.8914,
+      139.261
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyybza",
+    "name": "秩父赤壁",
+    "image": "https://image.anitabi.cn/user/1019/bangumi/10440/points/a4yyybza-1673184418116.jpg?plan=h160",
+    "ep": 11,
+    "s": 1280,
+    "geo": [
+      36.0952,
+      139.1154
+    ],
+    "origin": "Anitabi@大熊",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8tf",
+    "name": "YAOそば",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/f.jpg?plan=h160",
+    "ep": 719,
+    "s": 903,
+    "geo": [
+      35.9931,
+      139.0802
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "m0y5m16xx",
+    "cn": "鹤见牙科诊所",
+    "name": "鶴見歯科クリニック",
+    "image": "https://image.anitabi.cn/user/1131/bangumi/10440/points/m0y5m16xx-1720282098385.jpg?plan=h160",
+    "ep": 1,
+    "s": 503,
+    "geo": [
+      36,
+      139.0814
+    ],
+    "origin": "Anitabi@仓上日向",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "m0ya1jph1",
+    "cn": "秩父馆",
+    "name": "秩父館",
+    "image": "https://image.anitabi.cn/user/1131/bangumi/10440/points/m0ya1jph1-1720282318193.jpg?plan=h160",
+    "ep": 2,
+    "s": 402,
+    "geo": [
+      35.9987,
+      139.0834
+    ],
+    "origin": "Anitabi@仓上日向",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tvx89s1gn",
+    "name": "秘密基地门口",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tvx89s1gn-1742457048860.jpg?plan=h160",
+    "ep": 3,
+    "s": 3,
+    "geo": [
+      36.0119,
+      139.0798
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tvxkty53z",
+    "name": "秩父站前路灯",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tvxkty53z-1742457818283.jpg?plan=h160",
+    "ep": 1,
+    "s": 651,
+    "geo": [
+      35.9987,
+      139.0856
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tvxrtnj00",
+    "name": "定林寺内",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tvxrtnj00-1742458247300.jpg?plan=h160",
+    "ep": 9,
+    "s": 698,
+    "geo": [
+      36.0056,
+      139.0842
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "u88zb278x",
+    "name": "定林寺",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/u88zb278x-1743422997443.jpg?plan=h160",
+    "ep": "剧场版",
+    "s": 235,
+    "geo": [
+      36.0056,
+      139.0842
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "u89llyn8r",
+    "name": "秩父商工会議所",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/u89llyn8r-1743424347490.jpg?plan=h160",
+    "ep": "剧场版",
+    "s": 3062,
+    "geo": [
+      35.9985,
+      139.0857
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy6x4",
+    "name": "浅賀ちょうちん店向かいの路地",
+    "image": "https://image.anitabi.cn/points/10440/a4yyy6x4_1672644294465.jpg?plan=h160",
+    "ep": 1,
+    "geo": [
+      35.9998,
+      139.0841
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy6pw",
+    "name": "秩父鉄道 線路脇",
+    "image": "https://image.anitabi.cn/points/10440/a4yyy6pw_1672557224654.jpg?plan=h160",
+    "ep": 1,
+    "geo": [
+      35.997,
+      139.0853
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8hk",
+    "name": "ベスト電器YAO秩父前",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/k.jpg?plan=h160",
+    "ep": 3,
+    "geo": [
+      35.9946,
+      139.081
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy85l",
+    "name": "YAO前交差点",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/l.jpg?plan=h160",
+    "ep": 3,
+    "geo": [
+      35.9929,
+      139.0799
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy8br",
+    "name": "INDEX所沢西武店",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/r.jpg?plan=h160",
+    "ep": 5,
+    "geo": [
+      35.7864,
+      139.4719
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "a4yyy9ep",
+    "name": "飯能ホテルウィンク",
+    "image": "https://image.anitabi.cn/user/0/bangumi/10440/points/p.jpg?plan=h160",
+    "ep": 5,
+    "geo": [
+      35.8536,
+      139.3214
+    ],
+    "origin": "Anitabi",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tultc04a2",
+    "cn": "公园秋千",
+    "name": "けやき公園のブランコ",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tultc04a2-1742354043026.jpg?plan=h160",
+    "ep": 9,
+    "geo": [
+      36.0068,
+      139.0855
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tum0kurqd",
+    "name": "定林寺入口",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tum0kurqd-1742354309438.jpg?plan=h160",
+    "ep": "OP",
+    "geo": [
+      36.0055,
+      139.0841
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tum2d2yof",
+    "name": "赛钱箱",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tum2d2yof-1742354382551.jpg?plan=h160",
+    "ep": 7,
+    "geo": [
+      36.0056,
+      139.0842
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tvxartml9",
+    "name": "超平和バスターズ",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tvxartml9-1742457199169.jpg?plan=h160",
+    "ep": "OP",
+    "geo": [
+      36.0119,
+      139.0798
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  },
+  {
+    "id": "tvxbs2jpc",
+    "name": "ED开头面码坐着的地方",
+    "image": "https://image.anitabi.cn/user/1020/bangumi/10440/points/tvxbs2jpc-1742457265286.jpg?plan=h160",
+    "ep": "ED",
+    "geo": [
+      36.0119,
+      139.0798
+    ],
+    "origin": "Anitabi@折木",
+    "originURL": "https://anitabi.cn/"
+  }
+]

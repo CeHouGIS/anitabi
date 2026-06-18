@@ -1,0 +1,149 @@
+{
+  "id": 27364,
+  "cn": "冰菓",
+  "title": "氷菓",
+  "city": "高山市",
+  "cover": "https://image.anitabi.cn/bangumi/27364.jpg?plan=h160",
+  "color": "#c6c68e",
+  "geo": [
+    36.139507,
+    137.259797
+  ],
+  "zoom": 12.9,
+  "modified": 1777882628387,
+  "litePoints": [
+    {
+      "id": "ozj8t9728",
+      "cn": "上学道",
+      "name": "上学道",
+      "image": "https://image.anitabi.cn/user/2111/bangumi/27364/points/ozj8t9728-1728634530993.jpg?plan=h160",
+      "ep": 1,
+      "s": 3,
+      "geo": [
+        36.1566,
+        137.2581
+      ],
+      "origin": "Anitabi@双叶理央",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "7ek5c0v9",
+      "name": "神山高校",
+      "image": "https://image.anitabi.cn/points/27364/7ek5c0v9.jpg?plan=h160",
+      "ep": 1,
+      "s": 14,
+      "geo": [
+        36.1563,
+        137.2579
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.156328%2C137.257948&z=17"
+    },
+    {
+      "id": "7ek5c0rz",
+      "name": "OP1 场景（本町4商店街駐車場）",
+      "image": "https://image.anitabi.cn/user/1079/bangumi/27364/points/7ek5c0rz-1714998249396.jpg?plan=h160",
+      "ep": 1,
+      "s": 281,
+      "geo": [
+        36.1454,
+        137.2568
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.145469%2C137.256835&z=17"
+    },
+    {
+      "id": "rno7fzcnt",
+      "name": "猫鱼雕像",
+      "image": "https://image.anitabi.cn/user/1028/bangumi/27364/points/rno7fzcnt-1736168349049.jpg?plan=h160",
+      "ep": 1,
+      "s": 284,
+      "geo": [
+        36.1411,
+        137.2582
+      ],
+      "origin": "Anitabi@pshow",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "7ek5c0tg",
+      "name": "鍛冶橋交差点",
+      "image": "https://image.anitabi.cn/user/0/bangumi/27364/points/2.jpg?plan=h160",
+      "ep": 1,
+      "s": 1522,
+      "geo": [
+        36.1429,
+        137.2575
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.142978%2C137.257551&z=17"
+    },
+    {
+      "id": "7emmn40i",
+      "name": "神山神社石狮",
+      "image": "https://image.anitabi.cn/points/27364/7emmn40i.jpg?plan=h160",
+      "ep": 2,
+      "s": 2,
+      "geo": [
+        36.1379,
+        137.256
+      ],
+      "origin": "Anitabi@卜卜口",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "7ek5c04k",
+      "name": "猫鱼",
+      "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/7ek5c04k-1673008391472.jpg?plan=h160",
+      "ep": 2,
+      "s": 99,
+      "geo": [
+        36.1425,
+        137.2578
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.142504%2C137.257803&z=17"
+    },
+    {
+      "id": "7ek5c0da",
+      "name": "4 话行车路线",
+      "image": "https://image.anitabi.cn/user/1079/bangumi/27364/points/7ek5c0da-1714998958624.jpg?plan=h160",
+      "ep": 4,
+      "s": 223,
+      "geo": [
+        36.1414,
+        137.2652
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1-xhK9xXBighgJMVK-M8OxkKh5i4&ll=36.14147%2C137.265206&z=17"
+    },
+    {
+      "id": "59orvui2a",
+      "name": "不动桥",
+      "image": "https://image.anitabi.cn/user/1000/bangumi/27364/points/59orvui2a-1673008001802.jpg?plan=h160",
+      "ep": 4,
+      "s": 428,
+      "geo": [
+        36.1487,
+        137.2566
+      ],
+      "origin": "Anitabi@卜卜口",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "837zd8il8",
+      "name": "安田講堂",
+      "image": "https://image.anitabi.cn/points/27364/837zd8il8_1722728482677_cut.jpg?plan=h160",
+      "ep": 4,
+      "s": 618,
+      "geo": [
+        35.7134,
+        139.7622
+      ],
+      "origin": "Anitabi@月即别",
+      "originURL": "https://anitabi.cn/"
+    }
+  ],
+  "pointsLength": 72,
+  "imagesLength": 66
+}

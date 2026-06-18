@@ -1,0 +1,90 @@
+project:
+  name: anime-pilgrimage
+  python: /opt/conda/bin/python3.10
+
+# ---------------------------------------------------------------------------
+# Paths (relative to project root)
+# ---------------------------------------------------------------------------
+paths:
+  raw:
+    anime_sites: data/raw/anime_sites/
+    anime_frames: data/raw/anime_frames/
+    streetview:   data/raw/streetview/
+  interim:   data/interim/
+  processed: data/processed/
+  outputs:
+    figures: outputs/figures/
+    tables:  outputs/tables/
+    maps:    outputs/maps/
+  reports: reports/
+
+# ---------------------------------------------------------------------------
+# API settings
+# ---------------------------------------------------------------------------
+api:
+  anitabi_base:  "https://api.anitabi.cn"
+  image_base:    "https://image.anitabi.cn"
+  bangumi_base:  "https://api.bgm.tv/v0"
+  request_delay: 0.6   # seconds between HTTP requests
+  max_retries:   3
+  timeout:       15
+
+# ---------------------------------------------------------------------------
+# Demo: anime Bangumi subject IDs to fetch
+# (All confirmed to have anitabi pilgrimage data)
+# ---------------------------------------------------------------------------
+demo:
+  anime_ids:
+    - 27364    # 氷菓 (Hyouka) – Takayama, Gifu
+    - 10440    # あの花 (AnoHana) – Chichibu, Saitama
+    - 207195   # ゆるキャン△ (Yuru Camp) – Yamanashi
+  max_sites_per_anime: 30    # cap for demo
+  max_frames_per_anime: 10   # anime frame images to download per anime
+
+# ---------------------------------------------------------------------------
+# Google Street View (unofficial API, no key needed)
+# ---------------------------------------------------------------------------
+gsv:
+  enabled: false           # flip to true to attempt downloads
+  max_sites: 5             # only download for this many sites in demo
+  image_size: "640x640"
+  headings: [0, 90, 180, 270]
+  request_delay: 1.0
+
+# ---------------------------------------------------------------------------
+# Comparison site sampling
+# ---------------------------------------------------------------------------
+comparison:
+  random_per_site: 3    # A-type: random same-city points per anime site
+  random_seed: 42
+  place_type_per_site: 2  # B-type: same-place-type points (best effort)
+
+# ---------------------------------------------------------------------------
+# Spatial feature extraction (OSM via osmnx)
+# ---------------------------------------------------------------------------
+spatial:
+  # Only extract features for first N sites to keep demo fast.
+  # Each point requires ~60-90s of Overpass API time.
+  max_sites_for_demo: 5
+  extract_road_network: false  # road network query adds ~60s/pt; enable for full run
+  overpass_url: "https://overpass.kumi.systems/api/interpreter"  # fallback mirror
+  buffers_m: [500, 1000]   # metres
+
+  # OSM feature tags to query
+  poi_tags:
+    restaurant:   {amenity: restaurant}
+    cafe:         {amenity: cafe}
+    convenience:  {shop: convenience}
+    hotel:        {tourism: hotel}
+    shrine:       {amenity: place_of_worship, religion: shinto}
+    school:       {amenity: school}
+    attraction:   {tourism: attraction}
+    museum:       {tourism: museum}
+    station:      {railway: station}
+    bus_stop:     {highway: bus_stop}
+
+  # Sensitive place types: flag but do not discard
+  sensitive_place_types:
+    - school
+    - residential
+    - kindergarten

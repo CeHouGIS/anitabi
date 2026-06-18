@@ -1,0 +1,148 @@
+{
+  "id": 207195,
+  "cn": "摇曳露营△",
+  "title": "ゆるキャン△",
+  "city": "山梨县",
+  "cover": "https://image.anitabi.cn/bangumi/207195.jpg?plan=h160",
+  "color": "#6a55aa",
+  "geo": [
+    35.75097,
+    138.444213
+  ],
+  "zoom": 9,
+  "modified": 1779807729473,
+  "litePoints": [
+    {
+      "id": "42wiunn",
+      "name": "まかいの牧場",
+      "image": "https://image.anitabi.cn/points/207195/42wiunn_1755893042364.jpg?plan=h160",
+      "ep": 11,
+      "s": 117,
+      "geo": [
+        35.3363,
+        138.584
+      ],
+      "origin": "Anitabi@甜食伯爵",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "3i8lxfq",
+      "name": "富士山YMCA駐車場 附近",
+      "image": "https://image.anitabi.cn/user/1093/bangumi/207195/points/3i8lxfq-1754643563361.jpg?plan=h160",
+      "ep": 11,
+      "s": 38,
+      "geo": [
+        35.3416,
+        138.5847
+      ],
+      "origin": "Anitabi@うに",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "360f8480",
+      "name": "国道139号線（YMCA入口前）",
+      "image": "https://image.anitabi.cn/points/207195/360f8480_1719910559495.jpg?plan=h160",
+      "ep": 3,
+      "s": 120,
+      "geo": [
+        35.3408,
+        138.5883
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.340859%2C138.588305&z=17"
+    },
+    {
+      "id": "fd99d84f",
+      "name": "新東名高速道路新清水IC",
+      "image": "https://image.anitabi.cn/points/207195/fd99d84f_1719910641372.jpg?plan=h160",
+      "ep": 7,
+      "s": 1043,
+      "geo": [
+        35.1453,
+        138.5209
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.145389%2C138.520993&z=17"
+    },
+    {
+      "id": "fd047b1f",
+      "name": "県道17号線",
+      "image": "https://image.anitabi.cn/points/207195/fd047b1f_1719910604652.jpg?plan=h160",
+      "ep": 4,
+      "s": 813,
+      "geo": [
+        35.9427,
+        138.2496
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.9427%2C138.249631&z=17"
+    },
+    {
+      "id": "2751483a",
+      "name": "八ヶ岳エコーライン",
+      "image": "https://image.anitabi.cn/points/207195/2751483a_1719910606118.jpg?plan=h160",
+      "ep": 4,
+      "s": 817,
+      "geo": [
+        35.943,
+        138.249
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.943043%2C138.249034&z=17"
+    },
+    {
+      "id": "3i7vea6",
+      "name": "杖突峠パノラマ展望台",
+      "image": "https://image.anitabi.cn/user/1093/bangumi/207195/points/3i7vea6-1754642505070.jpg?plan=h160",
+      "ep": 9,
+      "s": 520,
+      "geo": [
+        35.977,
+        138.1298
+      ],
+      "origin": "Anitabi@うに",
+      "originURL": "https://anitabi.cn/"
+    },
+    {
+      "id": "17923512",
+      "name": "国道152号線 道標",
+      "image": "https://image.anitabi.cn/points/207195/17923512_1719910624749.jpg?plan=h160",
+      "ep": 9,
+      "s": 536,
+      "geo": [
+        35.879,
+        138.0952
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.879088%2C138.095223&z=17"
+    },
+    {
+      "id": "e908bed2",
+      "name": "県道42号線",
+      "image": "https://image.anitabi.cn/points/207195/e908bed2_1719910583653.jpg?plan=h160",
+      "ep": 9,
+      "s": 167,
+      "geo": [
+        35.5778,
+        138.465
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.5778%2C138.465025&z=17"
+    },
+    {
+      "id": "71f4bfca",
+      "name": "ローソン南アルプス街道店",
+      "image": "https://image.anitabi.cn/points/207195/71f4bfca_1719910584645.jpg?plan=h160",
+      "ep": 9,
+      "s": 201,
+      "geo": [
+        35.661,
+        138.4404
+      ],
+      "origin": "Google Maps",
+      "originURL": "https://www.google.com/maps/d/viewer?mid=1Hlzintz-iOT_6yI-xxGkQBWD-8FftQ-5&ll=35.661093%2C138.440453&z=17"
+    }
+  ],
+  "pointsLength": 684,
+  "imagesLength": 680
+}
