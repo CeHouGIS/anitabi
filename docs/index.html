@@ -42,7 +42,6 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
 .stat{background:#12151f;border-radius:.45rem;padding:.55rem .6rem;text-align:center}
 .stat .val{font-size:1.25rem;font-weight:700;color:var(--accent);line-height:1.1}
 .stat .lbl{font-size:.62rem;color:var(--muted);margin-top:.15rem}
-.chart-wrap{padding:.8rem 1rem;border-bottom:1px solid var(--border)}
 .info-panel{flex:1;overflow-y:auto;padding:.8rem 1rem}
 #site-info{font-size:.8rem;color:var(--muted)}
 .info-card{background:#12151f;border-radius:.45rem;padding:.7rem;margin-bottom:.45rem}
@@ -130,10 +129,6 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
       <div class="stat"><div class="val">90</div><div class="lbl">圣地点位</div></div>
       <div class="stat"><div class="val">270</div><div class="lbl">对照点位</div></div>
       <div class="stat"><div class="val">3</div><div class="lbl">作品</div></div>
-    </div>
-    <div class="chart-wrap">
-      <div class="section-title">旅游转化综合评分</div>
-      <canvas id="tourChart" height="120"></canvas>
     </div>
     <div class="info-panel">
       <div class="section-title">点击地图查看详情</div>
@@ -407,30 +402,6 @@ function showInfo(p,ptZh,hasPano){
   showScorePanel(p.id);
 }
 
-/* ── 旅游转化评分条形图 ───────────────────────────────── */
-new Chart(document.getElementById('tourChart').getContext('2d'),{
-  type:'bar',
-  data:{
-    labels:['冰菓','未闻花名','摇曳露营△'],
-    datasets:[
-      {label:'旅游转化评分',data:[7.85,7.83,6.59],
-       backgroundColor:['rgba(249,115,22,.75)','rgba(34,211,238,.75)','rgba(163,230,53,.75)'],
-       borderRadius:4,borderSkipped:false},
-      {label:'Bangumi评分',data:[8.2,7.5,8.2],
-       backgroundColor:'rgba(255,255,255,.07)',borderColor:'rgba(255,255,255,.18)',
-       borderWidth:1,borderRadius:4,borderSkipped:false}
-    ]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{labels:{color:'#9ca3af',font:{size:10}}},
-      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}`}}},
-    scales:{
-      x:{ticks:{color:'#9ca3af',font:{size:10}},grid:{color:'#1f2435'}},
-      y:{ticks:{color:'#9ca3af',font:{size:10}},grid:{color:'#1f2435'},min:0,max:10}
-    }
-  }
-});
 </script>
 </body>
 </html>
