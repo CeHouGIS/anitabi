@@ -16,8 +16,15 @@ env/
 # ── 大型原始数据（不推送）───────────────────────────────
 data/raw/anime_frames/
 data/raw/streetview/
+data/raw/place_pulse/
 data/raw/*.zip
 data/raw/*.tar.gz
+
+# ── 模型权重（体积大，不推送）────────────────────────────
+models/
+
+# ── 当前街景全景（体积大，可重新抓取）────────────────────
+docs/img/pano_now/
 
 # osmnx 网络缓存（可重新生成）
 cache/
