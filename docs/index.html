@@ -303,7 +303,7 @@ function loadPano(el){
 }
 
 /* ── Map ─────────────────────────────────────────────── */
-const map=L.map('map',{center:[36.1,138.2],zoom:7});
+const map=L.map('map',{center:[36.1,138.2],zoom:7,preferCanvas:true});
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
   attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19
 }).addTo(map);
