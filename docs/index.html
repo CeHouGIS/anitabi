@@ -3,23 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>二次元圣地巡礼 · 空间分析 Demo</title>
+<title>二次元圣地巡礼 · 空间分析</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#0f1117;--panel:#1a1d27;--border:#2a2d3e;
   --accent:#7c6ef2;--text:#e2e4ef;--muted:#6b7094;
-  --anime1:#f97316;--anime2:#22d3ee;--anime3:#a3e635;
-  --gsv:#facc15;
+  --up:#34d399;--down:#f87171;--mid:#facc15;
 }
 body{background:var(--bg);color:var(--text);font-family:'PingFang SC','Microsoft YaHei',system-ui,sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden}
-
 header{display:flex;align-items:center;gap:.9rem;padding:.65rem 1.2rem;background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;z-index:10}
 header h1{font-size:1rem;font-weight:700;letter-spacing:.04em;white-space:nowrap}
 header h1 span{color:var(--accent)}
@@ -28,78 +24,42 @@ header .spacer{flex:1}
 header a{color:var(--muted);font-size:.78rem;text-decoration:none}
 header a:hover{color:var(--text)}
 
-/* ── 主布局 ── */
 #layout{flex:1;display:flex;overflow:hidden}
 #map{flex:1;z-index:1}
 
-/* ── 侧边栏 ── */
-aside{width:330px;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
-.legend{padding:.8rem 1rem .65rem;border-bottom:1px solid var(--border)}
-.section-title{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem}
-.legend-items{display:flex;flex-direction:column;gap:.28rem}
-.legend-item{display:flex;align-items:center;gap:.45rem;font-size:.78rem}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.dash-line{width:20px;height:0;border-top:1.5px dashed rgba(255,255,255,.35);flex-shrink:0}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;padding:.8rem 1rem;border-bottom:1px solid var(--border)}
+aside{width:340px;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sec{padding:.8rem 1rem;border-bottom:1px solid var(--border)}
+.section-title{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 .stat{background:#12151f;border-radius:.45rem;padding:.55rem .6rem;text-align:center}
-.stat .val{font-size:1.25rem;font-weight:700;color:var(--accent);line-height:1.1}
+.stat .val{font-size:1.2rem;font-weight:700;color:var(--accent);line-height:1.1}
 .stat .lbl{font-size:.62rem;color:var(--muted);margin-top:.15rem}
-.info-panel{flex:1;overflow-y:auto;padding:.8rem 1rem}
-#site-info{font-size:.8rem;color:var(--muted)}
-.info-card{background:#12151f;border-radius:.45rem;padding:.7rem;margin-bottom:.45rem}
-.info-card .card-title{color:var(--text);font-weight:600;margin-bottom:.35rem;font-size:.88rem}
+.chart-wrap{position:relative;height:160px}
+.foot{font-size:.62rem;color:var(--muted);margin-top:.35rem;line-height:1.5}
+.legend-items{display:flex;flex-direction:column;gap:.3rem;margin-top:.2rem}
+.legend-item{display:flex;align-items:center;gap:.45rem;font-size:.74rem}
+.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;border:1px solid #fff3}
+.scalebar{height:9px;border-radius:3px;margin:.1rem 0;background:linear-gradient(90deg,#f87171,#facc15,#34d399)}
+.scale-lbl{display:flex;justify-content:space-between;font-size:.6rem;color:var(--muted)}
+
+#site-detail{font-size:.8rem;color:var(--muted)}
+.info-card{background:#12151f;border-radius:.45rem;padding:.7rem;margin-bottom:.6rem}
+.info-card .card-title{color:var(--text);font-weight:600;margin-bottom:.4rem;font-size:.9rem;line-height:1.3}
 .info-card table{width:100%;border-collapse:collapse}
 .info-card td{padding:.18rem .12rem;vertical-align:top}
-.info-card td:first-child{color:var(--muted);width:76px;font-size:.72rem}
+.info-card td:first-child{color:var(--muted);width:64px;font-size:.72rem}
 .info-card td:last-child{font-size:.76rem}
 .tag{display:inline-block;padding:.1rem .38rem;border-radius:.22rem;font-size:.66rem;font-weight:600;background:#2a2d3e;color:var(--accent)}
+.delta-up{color:var(--up);font-weight:700}.delta-down{color:var(--down);font-weight:700}
 
-/* ── 对比图片面板 ── */
-#cmp-panel{display:none;margin-top:.75rem}
-.cmp-row{margin-bottom:.5rem}
-.cmp-lbl{font-size:.66rem;color:var(--muted);letter-spacing:.06em;margin-bottom:.3rem;display:flex;align-items:center;gap:.35rem}
-.badge-sm{padding:.05rem .3rem;border-radius:.2rem;font-size:.62rem;font-weight:700}
-.badge-anime{background:#7c6ef222;color:#a5b4fc}
-.badge-gsv{background:#facc1522;color:#facc15}
-.cmp-img{width:100%;display:block;border-radius:.4rem;aspect-ratio:16/9;object-fit:cover;background:#12151f}
-#cmp-pano-wrap{width:100%;aspect-ratio:16/9;border-radius:.4rem;overflow:hidden;background:#0a0d14;position:relative}
-.pnlm-ui .pnlm-about-msg{display:none!important}
-.pnlm-controls-container{bottom:6px!important;right:6px!important;top:auto!important}
-.pnlm-zoom-controls .pnlm-zoom-in,.pnlm-zoom-controls .pnlm-zoom-out{width:20px!important;height:20px!important;line-height:20px!important;font-size:14px!important}
-.cmp-note{font-size:.68rem;color:var(--muted);margin-top:.3rem;line-height:1.5}
-
-/* ── 感知评分面板 ── */
-#score-panel{display:none;margin-top:.75rem}
-#score-panel .sp-hd{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
-#score-panel .sp-foot{font-size:.62rem;color:var(--muted);margin-top:.3rem;text-align:center}
-
-/* ── Leaflet 图层控件深色主题 ── */
-.leaflet-control-layers{
-  background:var(--panel)!important;border:1px solid var(--border)!important;
-  border-radius:.5rem!important;box-shadow:0 4px 18px #0005!important;
-  min-width:130px;
-}
-.leaflet-control-layers-list{padding:.45rem .6rem}
-.leaflet-control-layers label{
-  font-size:.76rem;color:var(--text);display:flex;align-items:center;
-  gap:.4rem;padding:.18rem 0;cursor:pointer
-}
-.leaflet-control-layers input[type=checkbox]{
-  accent-color:var(--accent);width:13px;height:13px;cursor:pointer
-}
-.leaflet-control-layers-separator{border-color:var(--border)!important;margin:.3rem 0}
-
-/* ── 杂项 ── */
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:transparent}
+#loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:50;color:var(--muted);font-size:.85rem}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .leaflet-container{background:#1a2031}
-.leaflet-popup-content-wrapper{background:#1a1d27;color:#e2e4ef;border:1px solid #2a2d3e;border-radius:.45rem;box-shadow:0 4px 20px #0006;font-size:.8rem}
+.leaflet-popup-content-wrapper{background:#1a1d27;color:#e2e4ef;border:1px solid #2a2d3e;border-radius:.45rem;font-size:.8rem}
 .leaflet-popup-tip{background:#1a1d27}
-.leaflet-popup-content{margin:.6rem .85rem}
-.leaflet-popup-content b{color:#a5b4fc;display:block;margin-bottom:.25rem;font-size:.88rem}
+.leaflet-popup-content b{color:#a5b4fc;display:block;margin-bottom:.2rem}
 .leaflet-popup-content small{color:var(--muted)}
-
 @media(max-width:720px){aside{display:none}}
 </style>
 </head>
@@ -107,353 +67,187 @@ aside{width:330px;background:var(--panel);border-left:1px solid var(--border);di
 
 <header>
   <h1>二次元圣地巡礼 <span>·</span> 空间分析</h1>
-  <span class="badge">Demo · 3 作品 · 90 圣地</span>
+  <span class="badge" id="hdr-badge">加载中…</span>
   <div class="spacer"></div>
   <a href="https://github.com/CeHouGIS/anitabi" target="_blank">GitHub →</a>
 </header>
 
 <div id="layout">
-  <div id="map"></div>
+  <div id="map"><div id="loading">正在加载 6,563 个圣地数据…</div></div>
   <aside>
-    <div class="legend">
-      <div class="section-title">图层说明</div>
-      <div class="legend-items">
-        <div class="legend-item"><div class="dot" style="background:var(--anime1)"></div><span>冰菓圣地（高山市）</span></div>
-        <div class="legend-item"><div class="dot" style="background:var(--anime2)"></div><span>未闻花名圣地（秩父市）</span></div>
-        <div class="legend-item"><div class="dot" style="background:var(--anime3)"></div><span>摇曳露营圣地（山梨）</span></div>
-        <div class="legend-item" style="margin-top:.2rem">
-          <div class="dot" style="background:var(--gsv);border:1.5px solid #fff8"></div>
-          <span>GSV 街景采样点</span>
-        </div>
-        <div class="legend-item">
-          <div class="dash-line"></div>
-          <span style="color:var(--muted)">两点共存时自动连线</span>
-        </div>
+    <div class="sec">
+      <div class="section-title">数据规模（anitabi × Bangumi 1990–2025）</div>
+      <div class="stats">
+        <div class="stat"><div class="val" id="s-anime">–</div><div class="lbl">巡礼作品</div></div>
+        <div class="stat"><div class="val" id="s-sites">–</div><div class="lbl">圣地坐标</div></div>
+        <div class="stat"><div class="val" id="s-elig">–</div><div class="lbl">DiD 合格圣地</div></div>
+        <div class="stat"><div class="val" id="s-panel">–</div><div class="lbl">街景感知评分</div></div>
       </div>
     </div>
-    <div class="stats">
-      <div class="stat"><div class="val">90</div><div class="lbl">圣地点位</div></div>
-      <div class="stat"><div class="val">7</div><div class="lbl">GSV采样点</div></div>
-      <div class="stat"><div class="val">3</div><div class="lbl">作品</div></div>
+
+    <div class="sec">
+      <div class="section-title">DiD · 感知随播出的变化（event-study）</div>
+      <div class="chart-wrap"><canvas id="event-chart"></canvas></div>
+      <div class="foot">横轴 = 距播出年数，0=播出年（黄线）。各曲线为全部合格圣地街景感知均值。播出后相对趋势变化即圣地巡礼的空间效应。</div>
     </div>
-    <div class="info-panel">
-      <div class="section-title">点击地图查看详情</div>
-      <div id="site-info">
-        <p style="margin-top:.4rem;line-height:1.65;color:var(--muted);font-size:.8rem">
-          白描边大圆 = 精选 7 个代表圣地，同时有 GSV 街景采样点（黄色）与之对应，两点共存时自动连线。<br><br>
-          点击后可查看动漫帧与实景对比，以及感知质量时序变化。
-        </p>
-      </div>
 
-      <!-- 动漫帧 vs 实景街景 -->
-      <div id="cmp-panel">
-        <div class="cmp-row">
-          <div class="cmp-lbl"><span class="badge-sm badge-anime">动漫帧</span>anitabi 场景截图</div>
-          <img id="cmp-anime" class="cmp-img" alt="">
-        </div>
-        <div class="cmp-row">
-          <div class="cmp-lbl"><span class="badge-sm badge-gsv">实景街景</span>Google Street View · 拖动旋转视角</div>
-          <div id="cmp-pano-wrap"></div>
-        </div>
-        <div class="cmp-note" id="cmp-note"></div>
-      </div>
+    <div class="sec">
+      <div class="section-title">2016 前后占比（圣地数·逐年）</div>
+      <div class="chart-wrap" style="height:130px"><canvas id="ratio-chart"></canvas></div>
+      <div class="foot" id="ratio-foot"></div>
+    </div>
 
-      <!-- 感知评分时序 -->
-      <div id="score-panel">
-        <div class="sp-hd">感知评分 · 时序</div>
-        <div style="position:relative;height:175px">
-          <canvas id="aside-chart"></canvas>
-        </div>
-        <div class="sp-foot">■ 活力 &nbsp;■ 美观 &nbsp;■ 安全 &nbsp;｜ 黄线 = 播出时间</div>
+    <div class="sec">
+      <div class="section-title">地图着色 · 播出后活力变化</div>
+      <div class="scalebar"></div>
+      <div class="scale-lbl"><span>下降 −0.4</span><span>不变</span><span>上升 +0.4</span></div>
+      <div class="foot">每个点 = 一个 DiD 合格圣地，颜色 = 播出后"活力(lively)"感知均值 − 播出前均值。</div>
+    </div>
+
+    <div class="sec" style="border-bottom:none;flex:1">
+      <div class="section-title">点击圣地查看时序</div>
+      <div id="site-detail">
+        <p style="line-height:1.65;font-size:.8rem">点击地图上任意圣地，查看该地点街景感知评分的逐年变化（活力/美观/安全），以及播出前后的差值。</p>
       </div>
     </div>
   </aside>
 </div>
 
 <script>
-/* ── 配置 ─────────────────────────────────────────────── */
-const ANIME_COLOR={27364:'#f97316',10440:'#22d3ee',207195:'#a3e635'};
-const ANIME_NAME ={27364:'冰菓',10440:'未闻花名',207195:'摇曳露营△'};
-const PLACE_TYPE_ZH={
-  shrine:'神社·庙宇',temple:'寺院',bridge:'桥梁',station:'车站',
-  park:'公园',hill_viewpoint:'山地景观',river:'河流水岸',
-  school:'学校',shopping_street:'商业街',intersection:'路口',other:'其他'
-};
+const ATTR={l:{name:'活力',c:'#22d3ee'},b:{name:'美观',c:'#a3e635'},s:{name:'安全',c:'#f97316'}};
 
-/* ── 对比数据 ─────────────────────────────────────────── */
-const COMPARE_SITES=[
-  {id:'S_27364_0002',anime_id:27364,city:'高山市 · 岐阜',
-   name:'本町商店街（OP1 场景）',broadcast:'2012-04',
-   anime_img:'img/anime/S_27364_0002.jpg',pano:'img/pano/S_27364_0002.jpg',
-   note:'高山市保存完好的传统町家老街，冰菓 OP1 取景地'},
-  {id:'S_27364_0004',anime_id:27364,city:'高山市 · 岐阜',
-   name:'鍛冶橋交差点',broadcast:'2012-04',
-   anime_img:'img/anime/S_27364_0004.jpg',pano:'img/pano/S_27364_0004.jpg',
-   note:'高山市主干商业道路，500m 内 77 家餐厅'},
-  {id:'S_27364_0026',anime_id:27364,city:'高山市 · 岐阜',
-   name:'宮川朝市',broadcast:'2012-04',
-   anime_img:'img/anime/S_27364_0026.jpg',pano:'img/pano/S_27364_0026.jpg',
-   note:'宮川河岸早市，柳树与传统民家沿河排列'},
-  {id:'S_10440_0030',anime_id:10440,city:'秩父市 · 埼玉',
-   name:'旧秩父橋',broadcast:'2011-04',
-   anime_img:'img/anime/S_10440_0030.jpg',pano:'img/pano/S_10440_0030.jpg',
-   note:'粉丝最常打卡的标志性大桥，新旧两座桥梁并排'},
-  {id:'S_10440_0051',anime_id:10440,city:'秩父市 · 埼玉',
-   name:'秩父神社前',broadcast:'2011-04',
-   anime_img:'img/anime/S_10440_0051.jpg',pano:'img/pano/S_10440_0051.jpg',
-   note:'石灯笼·参道·大树，典型下町神社空间'},
-  {id:'S_207195_0069',anime_id:207195,city:'南アルプス市 · 山梨',
-   name:'ローソン 南アルプス街道店',broadcast:'2018-01',
-   anime_img:'img/anime/S_207195_0069.jpg',pano:'img/pano/S_207195_0069.jpg',
-   note:'开阔公路+山地背景的小镇便利店，志摩凛骑车途经场景'},
-  {id:'S_207195_0075',anime_id:207195,city:'南アルプス市 · 山梨',
-   name:'夜叉神峠登山口',broadcast:'2018-01',
-   anime_img:'img/anime/S_207195_0075.jpg',pano:'img/pano/S_207195_0075.jpg',
-   note:'岩石·山道入口，郊野户外型圣地'},
-];
-const PANO_MAP={};
-COMPARE_SITES.forEach(s=>{PANO_MAP[s.id]=s;});
-
-/* ── GSV 街景采样点（实际路面采集坐标，与圣地点有偏移）─ */
-// 坐标来自 GeoPhotoService 实际返回的 panoid 位置（路面采集点）
-const GSV_POINTS=[
-  // 高山市 冰菓
-  {id:'S_27364_0002', lat:36.145454, lon:137.256863, latest:'2023-09',
-   panoids:8, note:'本町通路面采集，距圣地约 8m'},
-  {id:'S_27364_0004', lat:36.142957, lon:137.257479, latest:'2023-10',
-   panoids:8, note:'鍛冶橋交差点路面采集，距圣地约 7m'},
-  {id:'S_27364_0026', lat:36.144996, lon:137.257913, latest:'2023-09',
-   panoids:8, note:'宮川河岸道路采集，距圣地约 1m'},
-  // 秩父市 未闻花名
-  {id:'S_10440_0030', lat:36.018533, lon:139.085823, latest:'2023-03',
-   panoids:8, note:'桥头引道路面采集，距圣地约 49m'},
-  {id:'S_10440_0051', lat:35.996601, lon:139.084098, latest:'2025-05',
-   panoids:8, note:'秩父神社前街道采集，距圣地约 0m'},
-  // 山梨 摇曳露营
-  {id:'S_207195_0069', lat:35.661001, lon:138.440571, latest:'2025-04',
-   panoids:8, note:'南アルプス街道路面采集，距圣地约 16m'},
-  {id:'S_207195_0075', lat:35.635544, lon:138.345340, latest:'2023-04',
-   panoids:8, note:'夜叉神峠林道路面采集，距圣地约 8m'},
-];
-
-/* ── 感知评分数据 ─────────────────────────────────────── */
-const SCORE_DATA=[
-  {id:'S_10440_0030',name:'旧秩父橋',anime_id:10440,broadcast:'2011-04',
-   dates:['2011-05','2012-07','2015-01','2015-07','2017-11','2018-09','2019-10','2023-03'],
-   lively:   [4.59,4.39,4.41,4.42,4.47,4.43,4.47,4.57],
-   beautiful:[5.26,5.23,5.15,5.19,5.21,5.23,5.20,5.35],
-   safety:   [5.17,4.95,4.94,5.03,5.07,5.01,5.03,5.16]},
-  {id:'S_10440_0051',name:'秩父神社前',anime_id:10440,broadcast:'2011-04',
-   dates:['2011-05','2012-07','2015-07','2018-09','2019-09','2023-05','2023-12','2025-05'],
-   lively:   [5.36,5.31,5.39,5.56,5.58,5.76,5.38,5.43],
-   beautiful:[5.43,5.32,5.39,5.21,5.28,5.28,5.36,5.01],
-   safety:   [5.49,5.37,5.51,5.48,5.47,5.51,5.47,5.42]},
-  {id:'S_207195_0069',name:'ローソン 南アルプス',anime_id:207195,broadcast:'2018-01',
-   dates:['2012-06','2018-08','2023-03','2025-04'],
-   lively:   [4.62,4.67,4.68,4.80],
-   beautiful:[4.67,4.56,4.44,5.03],
-   safety:   [4.92,4.84,4.80,5.23]},
-  {id:'S_207195_0075',name:'夜叉神峠登山口',anime_id:207195,broadcast:'2018-01',
-   dates:['2012-06','2023-04'],
-   lively:   [4.57,4.68],
-   beautiful:[5.25,5.40],
-   safety:   [5.12,5.15]},
-  {id:'S_27364_0002',name:'本町商店街',anime_id:27364,broadcast:'2012-04',
-   dates:['2012-04','2018-08','2019-07','2020-11','2021-08','2022-08','2023-09'],
-   lively:   [5.17,5.19,5.22,5.27,4.98,5.07,4.99],
-   beautiful:[4.80,4.78,4.77,4.46,4.34,4.32,4.54],
-   safety:   [5.19,5.12,5.12,4.92,4.75,4.80,4.93]},
-  {id:'S_27364_0004',name:'鍛冶橋交差点',anime_id:27364,broadcast:'2012-04',
-   dates:['2012-03','2013-08','2018-08','2019-07','2020-11','2021-09','2022-08','2023-10'],
-   lively:   [5.47,5.35,5.54,5.51,5.51,5.55,5.27,5.36],
-   beautiful:[4.92,4.81,4.97,4.96,4.68,5.14,4.69,4.56],
-   safety:   [5.27,5.20,5.36,5.25,5.16,5.54,5.14,4.99]},
-  {id:'S_27364_0026',name:'宮川朝市',anime_id:27364,broadcast:'2012-04',
-   dates:['2012-04','2018-08','2019-07','2020-11','2023-09'],
-   lively:   [5.31,5.09,5.16,5.18,5.10],
-   beautiful:[5.05,5.03,4.97,5.16,5.17],
-   safety:   [5.29,5.24,5.16,5.33,5.24]},
-];
-const SCORE_MAP={};
-SCORE_DATA.forEach(s=>{SCORE_MAP[s.id]=s;});
-
-/* ── 侧边栏：对比图片 + 360° 全景 ───────────────────── */
-let sidebarPano=null;
-
-function showCmpPanel(siteId){
-  const s=PANO_MAP[siteId];
-  const panel=document.getElementById('cmp-panel');
-  if(!s){panel.style.display='none';return;}
-  panel.style.display='block';
-  document.getElementById('cmp-anime').src=s.anime_img;
-  document.getElementById('cmp-note').textContent=s.note;
-
-  // 销毁旧全景，重新初始化
-  if(sidebarPano){try{sidebarPano.destroy();}catch(e){}sidebarPano=null;}
-  // 清空容器（pannellum destroy 有时不清 DOM）
-  const wrap=document.getElementById('cmp-pano-wrap');
-  wrap.innerHTML='';
-  requestAnimationFrame(()=>{
-    sidebarPano=pannellum.viewer('cmp-pano-wrap',{
-      type:'equirectangular',
-      panorama:s.pano,
-      autoLoad:true,
-      autoRotate:-1,
-      showControls:true,
-      showFullscreenCtrl:false,
-      showZoomCtrl:true,
-      compass:false,
-      hfov:100,minHfov:50,maxHfov:130,
-      pitch:0,yaw:0,
-    });
-  });
+/* 播出后活力变化 → 颜色（红=降, 黄=不变, 绿=升）。线性插值 红↔黄↔绿 */
+function deltaColor(d){
+  if(d===null||d===undefined) return '#6b7094';
+  const t=Math.max(-1,Math.min(1,d/0.4));   // clamp 到 ±0.4
+  const RED=[248,113,113],YEL=[250,204,21],GRN=[52,211,153];
+  const mix=(a,b,f)=>a.map((v,i)=>Math.round(v+(b[i]-v)*f));
+  const c = t<0 ? mix(RED,YEL,t+1) : mix(YEL,GRN,t);
+  return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 
-/* ── 侧边栏：感知评分时序图 ─────────────────────────── */
-let asideChart=null;
+const map=L.map('map',{center:[36.3,138.0],zoom:6,preferCanvas:true});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  {attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(map);
 
-function bcastLinePos(dates,broadcast){
-  for(let i=0;i<dates.length;i++){
-    if(dates[i]>=broadcast) return i-0.5;
-  }
-  return dates.length-0.5;
-}
+let SCORES={};
+let siteChart=null, eventChart=null, ratioChart=null;
 
-function showScorePanel(siteId){
-  const s=SCORE_MAP[siteId];
-  const panel=document.getElementById('score-panel');
-  if(!s){panel.style.display='none';return;}
-  panel.style.display='block';
-  if(asideChart){asideChart.destroy();asideChart=null;}
-  const xPos=bcastLinePos(s.dates,s.broadcast);
-  asideChart=new Chart(
-    document.getElementById('aside-chart').getContext('2d'),{
+function fmt(n){return n.toLocaleString('en-US');}
+
+function showSite(sid){
+  const s=SCORES[sid];
+  const el=document.getElementById('site-detail');
+  if(!s){el.innerHTML='<p style="font-size:.8rem">该点暂无评分时序</p>';return;}
+  // 播出前后活力差
+  const by=+s.bc.slice(0,4),bm=+s.bc.slice(5,7);
+  let pre=[],post=[];
+  s.d.forEach((d,i)=>{const y=+d.slice(0,4),m=+d.slice(5,7);
+    ((y<by||(y===by&&m<bm))?pre:post).push(s.l[i]);});
+  const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
+  let deltaTxt='—';
+  if(pre.length&&post.length){const d=avg(post)-avg(pre);
+    deltaTxt=`<span class="${d>=0?'delta-up':'delta-down'}">${d>=0?'+':''}${d.toFixed(2)}</span>`;}
+  el.innerHTML=`<div class="info-card">
+    <div class="card-title">${s.nm}</div>
+    <table>
+      <tr><td>作品</td><td><span class="tag">${s.t}</span></td></tr>
+      <tr><td>播出</td><td>${s.bc}</td></tr>
+      <tr><td>快照</td><td>${s.d.length} 个时点（${s.d[0]} → ${s.d[s.d.length-1]}）</td></tr>
+      <tr><td>活力变化</td><td>播出后 − 前 = ${deltaTxt}</td></tr>
+    </table>
+    <div class="chart-wrap" style="height:165px;margin-top:.5rem"><canvas id="site-chart"></canvas></div>
+  </div>`;
+  if(siteChart)siteChart.destroy();
+  // 播出竖线位置
+  let xPos=s.d.length-0.5;
+  for(let i=0;i<s.d.length;i++){if(s.d[i]>=s.bc){xPos=i-0.5;break;}}
+  siteChart=new Chart(document.getElementById('site-chart'),{
     type:'line',
-    data:{
-      labels:s.dates,
-      datasets:[
-        {label:'活力',data:s.lively,  borderColor:'#22d3ee',backgroundColor:'rgba(34,211,238,.07)',tension:.35,pointRadius:2.5,borderWidth:1.8},
-        {label:'美观',data:s.beautiful,borderColor:'#a3e635',backgroundColor:'rgba(163,230,53,.07)',tension:.35,pointRadius:2.5,borderWidth:1.8},
-        {label:'安全',data:s.safety,  borderColor:'#f97316',backgroundColor:'rgba(249,115,22,.07)',tension:.35,pointRadius:2.5,borderWidth:1.8},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
+    data:{labels:s.d,datasets:[
+      {label:'活力',data:s.l,borderColor:ATTR.l.c,tension:.35,pointRadius:2,borderWidth:1.7},
+      {label:'美观',data:s.b,borderColor:ATTR.b.c,tension:.35,pointRadius:2,borderWidth:1.7},
+      {label:'安全',data:s.s,borderColor:ATTR.s.c,tension:.35,pointRadius:2,borderWidth:1.7},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
       interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{labels:{color:'#9ca3af',font:{size:9},boxWidth:10,padding:8,usePointStyle:true}},
+      plugins:{legend:{labels:{color:'#9ca3af',font:{size:9},boxWidth:9,padding:7,usePointStyle:true}},
         tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}`}},
-        annotation:{annotations:{bcast:{
-          type:'line',xMin:xPos,xMax:xPos,
+        annotation:{annotations:{bc:{type:'line',xMin:xPos,xMax:xPos,
           borderColor:'rgba(255,200,80,.7)',borderWidth:1.5,borderDash:[4,3],
-          label:{display:true,content:'播出',color:'rgba(255,200,80,.9)',
-            position:'start',backgroundColor:'transparent',font:{size:8,weight:'bold'},yAdjust:4}
-        }}}
-      },
-      scales:{
-        x:{ticks:{color:'#9ca3af',font:{size:8},maxRotation:45,minRotation:30},grid:{color:'rgba(31,36,53,.9)'}},
-        y:{ticks:{color:'#9ca3af',font:{size:8}},grid:{color:'rgba(31,36,53,.9)'},min:4.0,max:6.3}
-      }
-    }
+          label:{display:true,content:'播出',color:'rgba(255,200,80,.9)',position:'start',font:{size:8,weight:'bold'}}}}}},
+      scales:{x:{ticks:{color:'#9ca3af',font:{size:7},maxRotation:45,minRotation:30},grid:{color:'rgba(31,36,53,.9)'}},
+        y:{ticks:{color:'#9ca3af',font:{size:8}},grid:{color:'rgba(31,36,53,.9)'}}}}
   });
 }
 
-function showInfo(p,ptZh,hasPano){
-  document.getElementById('site-info').innerHTML=`
-    <div class="info-card">
-      <div class="card-title">${p.name}</div>
-      <table>
-        <tr><td>作品</td><td><span class="tag">${ANIME_NAME[p.anime_id]}</span></td></tr>
-        <tr><td>类型</td><td>${ptZh}</td></tr>
-        <tr><td>城市</td><td>${p.city}</td></tr>
-        ${hasPano?'<tr><td>街景</td><td><span style="color:#a3e635;font-size:.72rem">✓ 已采集历史时序</span></td></tr>':''}
-      </table>
-    </div>`;
-  showCmpPanel(p.id);
-  showScorePanel(p.id);
+function eventStudy(ev){
+  eventChart=new Chart(document.getElementById('event-chart'),{
+    type:'line',
+    data:{labels:ev.map(e=>e.rel),datasets:Object.entries(ATTR).map(([k,a])=>({
+      label:a.name,data:ev.map(e=>e[k]),borderColor:a.c,tension:.3,pointRadius:1.5,borderWidth:1.8}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{color:'#9ca3af',font:{size:9},boxWidth:9,padding:7,usePointStyle:true}},
+        tooltip:{callbacks:{title:c=>`距播出 ${c[0].label} 年`,label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}`}},
+        annotation:{annotations:{bc:{type:'line',xMin:6,xMax:6,
+          borderColor:'rgba(255,200,80,.7)',borderWidth:1.5,borderDash:[4,3],
+          label:{display:true,content:'播出',color:'rgba(255,200,80,.9)',position:'start',font:{size:8,weight:'bold'}}}}}},
+      scales:{x:{ticks:{color:'#9ca3af',font:{size:8}},grid:{color:'rgba(31,36,53,.9)'}},
+        y:{ticks:{color:'#9ca3af',font:{size:8}},grid:{color:'rgba(31,36,53,.9)'}}}}
+  });
 }
 
-/* ── 地图初始化 ───────────────────────────────────────── */
-const map=L.map('map',{center:[36.1,138.2],zoom:7,preferCanvas:true});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-  attribution:'© OpenStreetMap contributors © CARTO',maxZoom:19
-}).addTo(map);
-
-// 三个独立图层组
-const sitesLayer=L.layerGroup();
-const gsvLayer=L.layerGroup();
-const linesLayer=L.layerGroup();
-
-/* ── 圣地点位图层 ─────────────────────────────────────── */
-const SITES={"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2581,36.1566]},"properties":{"id":"S_27364_0000","anime_id":27364,"name":"上学道","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2579,36.1563]},"properties":{"id":"S_27364_0001","anime_id":27364,"name":"神山高校","place_type":"school","city":"高山市","prefecture":"岐阜県","sensitive":true}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2568,36.1454]},"properties":{"id":"S_27364_0002","anime_id":27364,"name":"本町商店街","place_type":"shopping_street","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2582,36.1411]},"properties":{"id":"S_27364_0003","anime_id":27364,"name":"猫鱼雕像","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2575,36.1429]},"properties":{"id":"S_27364_0004","anime_id":27364,"name":"鍛冶橋交差点","place_type":"bridge","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.256,36.1379]},"properties":{"id":"S_27364_0005","anime_id":27364,"name":"神山神社石狮","place_type":"shrine","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2578,36.1425]},"properties":{"id":"S_27364_0006","anime_id":27364,"name":"猫鱼","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2652,36.1414]},"properties":{"id":"S_27364_0007","anime_id":27364,"name":"4话行车路线","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2566,36.1487]},"properties":{"id":"S_27364_0008","anime_id":27364,"name":"不动桥","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.7622,35.7134]},"properties":{"id":"S_27364_0009","anime_id":27364,"name":"安田講堂","place_type":"temple","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2567,36.1459]},"properties":{"id":"S_27364_0010","anime_id":27364,"name":"5话寄信处","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2575,36.1456]},"properties":{"id":"S_27364_0011","anime_id":27364,"name":"OP1水中阶梯","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2592,36.1336]},"properties":{"id":"S_27364_0012","anime_id":27364,"name":"神社参道","place_type":"shrine","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.552,36.1909]},"properties":{"id":"S_27364_0013","anime_id":27364,"name":"アルプス街道平湯","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5516,36.1909]},"properties":{"id":"S_27364_0014","anime_id":27364,"name":"平湯バスターミナル","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5544,36.1924]},"properties":{"id":"S_27364_0015","anime_id":27364,"name":"青山荘理论位置","place_type":"hill_viewpoint","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5526,36.192]},"properties":{"id":"S_27364_0016","anime_id":27364,"name":"青山荘馆内","place_type":"hill_viewpoint","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5541,36.1925]},"properties":{"id":"S_27364_0017","anime_id":27364,"name":"去温泉的路上","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.554,36.1921]},"properties":{"id":"S_27364_0018","anime_id":27364,"name":"平湯民俗馆神社岔路口","place_type":"shrine","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.5543,36.1918]},"properties":{"id":"S_27364_0019","anime_id":27364,"name":"平湯の湯","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.3065,36.3522]},"properties":{"id":"S_27364_0020","anime_id":27364,"name":"古丘町楢窪","place_type":"hill_viewpoint","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2572,36.1537]},"properties":{"id":"S_27364_0021","anime_id":27364,"name":"恋合病院","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.256,36.1382]},"properties":{"id":"S_27364_0022","anime_id":27364,"name":"8话场景","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2567,36.1457]},"properties":{"id":"S_27364_0023","anime_id":27364,"name":"9话八百屋","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2596,36.1416]},"properties":{"id":"S_27364_0024","anime_id":27364,"name":"喫茶一二三","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2578,36.1422]},"properties":{"id":"S_27364_0025","anime_id":27364,"name":"本町2丁目","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2579,36.145]},"properties":{"id":"S_27364_0026","anime_id":27364,"name":"宮川朝市","place_type":"river","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2574,36.1456]},"properties":{"id":"S_27364_0027","anime_id":27364,"name":"宮川河川敷","place_type":"river","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2574,36.1436]},"properties":{"id":"S_27364_0028","anime_id":27364,"name":"11话场景","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.2318,36.1578]},"properties":{"id":"S_27364_0029","anime_id":27364,"name":"11.5话市民游泳池","place_type":"other","city":"高山市","prefecture":"岐阜県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0863,36.0187]},"properties":{"id":"S_10440_0030","anime_id":10440,"name":"旧秩父橋","place_type":"bridge","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0901,35.9901]},"properties":{"id":"S_10440_0031","anime_id":10440,"name":"羊山公園見晴しの丘","place_type":"hill_viewpoint","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0841,36.0056]},"properties":{"id":"S_10440_0032","anime_id":10440,"name":"定林寺脇","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0849,36.0038]},"properties":{"id":"S_10440_0033","anime_id":10440,"name":"鶴見歯科十字路","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0828,35.9969]},"properties":{"id":"S_10440_0034","anime_id":10440,"name":"秩父ふるさと館前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0839,35.9956]},"properties":{"id":"S_10440_0035","anime_id":10440,"name":"浅野靴店","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.085,36.0006]},"properties":{"id":"S_10440_0036","anime_id":10440,"name":"キンカ堂路地","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0853,36.0002]},"properties":{"id":"S_10440_0037","anime_id":10440,"name":"公园","place_type":"park","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0821,35.9853]},"properties":{"id":"S_10440_0038","anime_id":10440,"name":"西武秩父線高架下","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0822,35.9855]},"properties":{"id":"S_10440_0039","anime_id":10440,"name":"ソフトバンクショップ前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0837,35.9992]},"properties":{"id":"S_10440_0040","anime_id":10440,"name":"たつみや","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0834,35.9987]},"properties":{"id":"S_10440_0041","anime_id":10440,"name":"秩父館","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0762,35.995]},"properties":{"id":"S_10440_0042","anime_id":10440,"name":"リスの置石","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0912,36.0182]},"properties":{"id":"S_10440_0043","anime_id":10440,"name":"蛙の置石","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0854,35.9973]},"properties":{"id":"S_10440_0044","anime_id":10440,"name":"秩父祭り会館横","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0837,35.9951]},"properties":{"id":"S_10440_0045","anime_id":10440,"name":"福島洋品店前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0837,36.0047]},"properties":{"id":"S_10440_0046","anime_id":10440,"name":"定林寺そば","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0848,36.0056]},"properties":{"id":"S_10440_0047","anime_id":10440,"name":"定林寺横空き地","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0842,36.0182]},"properties":{"id":"S_10440_0048","anime_id":10440,"name":"新秩父橋奥斜面","place_type":"bridge","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0859,36.0188]},"properties":{"id":"S_10440_0049","anime_id":10440,"name":"第二秩父橋西","place_type":"bridge","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0885,35.9961]},"properties":{"id":"S_10440_0050","anime_id":10440,"name":"ウニクス秩父パステル","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0841,35.9966]},"properties":{"id":"S_10440_0051","anime_id":10440,"name":"秩父神社前","place_type":"shrine","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.319,35.851]},"properties":{"id":"S_10440_0052","anime_id":10440,"name":"飯能駅ホーム","place_type":"station","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0885,35.9945]},"properties":{"id":"S_10440_0053","anime_id":10440,"name":"モンマートいのうえ","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0853,36.0064]},"properties":{"id":"S_10440_0054","anime_id":10440,"name":"定林寺近くの公园","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.083,36.0048]},"properties":{"id":"S_10440_0055","anime_id":10440,"name":"峰寿司前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0765,35.9956]},"properties":{"id":"S_10440_0056","anime_id":10440,"name":"秩父第一病院前","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0852,36.0045]},"properties":{"id":"S_10440_0057","anime_id":10440,"name":"郵政庁舎裏","place_type":"other","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.0842,36.0056]},"properties":{"id":"S_10440_0058","anime_id":10440,"name":"定林寺境内","place_type":"temple","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[139.1004,36.0073]},"properties":{"id":"S_10440_0059","anime_id":10440,"name":"秩父聖地公園","place_type":"park","city":"秩父市","prefecture":"埼玉県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.584,35.3363]},"properties":{"id":"S_207195_0060","anime_id":207195,"name":"まかいの牧場","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.5847,35.3416]},"properties":{"id":"S_207195_0061","anime_id":207195,"name":"富士山YMCA駐車場附近","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.5883,35.3408]},"properties":{"id":"S_207195_0062","anime_id":207195,"name":"国道139号線YMCA入口","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.5209,35.1453]},"properties":{"id":"S_207195_0063","anime_id":207195,"name":"新東名高速新清水IC","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.2496,35.9427]},"properties":{"id":"S_207195_0064","anime_id":207195,"name":"県道17号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.249,35.943]},"properties":{"id":"S_207195_0065","anime_id":207195,"name":"八ヶ岳エコーライン","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.1298,35.977]},"properties":{"id":"S_207195_0066","anime_id":207195,"name":"杖突峠展望台","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.0952,35.879]},"properties":{"id":"S_207195_0067","anime_id":207195,"name":"国道152号線道標","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.465,35.5778]},"properties":{"id":"S_207195_0068","anime_id":207195,"name":"県道42号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4404,35.661]},"properties":{"id":"S_207195_0069","anime_id":207195,"name":"ローソン南アルプス街道店","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4276,35.6575]},"properties":{"id":"S_207195_0070","anime_id":207195,"name":"塩沢入口交差点","place_type":"intersection","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.385,35.638]},"properties":{"id":"S_207195_0071","anime_id":207195,"name":"県道20号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.371,35.6355]},"properties":{"id":"S_207195_0072","anime_id":207195,"name":"瀬戸大橋","place_type":"bridge","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.3696,35.6354]},"properties":{"id":"S_207195_0073","anime_id":207195,"name":"岩園館","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.3455,35.6355]},"properties":{"id":"S_207195_0074","anime_id":207195,"name":"夜叉神の茶屋","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.3454,35.6356]},"properties":{"id":"S_207195_0075","anime_id":207195,"name":"夜叉神峠登山口","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9124,35.7388]},"properties":{"id":"S_207195_0076","anime_id":207195,"name":"県道75号線女体入口駅","place_type":"station","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9349,35.7414]},"properties":{"id":"S_207195_0077","anime_id":207195,"name":"コンビニ","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.896,35.7351]},"properties":{"id":"S_207195_0078","anime_id":207195,"name":"早太郎おみくじ","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8955,35.7348]},"properties":{"id":"S_207195_0079","anime_id":207195,"name":"早太郎像","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8956,35.7347]},"properties":{"id":"S_207195_0080","anime_id":207195,"name":"霊犬早太郎の墓","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8116,35.78]},"properties":{"id":"S_207195_0081","anime_id":207195,"name":"千畳敷カール","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.888,35.7436]},"properties":{"id":"S_207195_0082","anime_id":207195,"name":"早太郎温泉前","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8882,35.7441]},"properties":{"id":"S_207195_0083","anime_id":207195,"name":"ミニソースかつ丼","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.8881,35.744]},"properties":{"id":"S_207195_0084","anime_id":207195,"name":"夢の中のなでしこ","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9958,35.7186]},"properties":{"id":"S_207195_0085","anime_id":207195,"name":"県道210号線","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[137.9851,35.671]},"properties":{"id":"S_207195_0086","anime_id":207195,"name":"陣馬形山南アルプス展望台","place_type":"hill_viewpoint","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4556,35.4843]},"properties":{"id":"S_207195_0087","anime_id":207195,"name":"峡南橋","place_type":"bridge","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.456,35.4838]},"properties":{"id":"S_207195_0088","anime_id":207195,"name":"峡南橋東詰","place_type":"bridge","city":"山梨县","prefecture":"山梨県","sensitive":false}},{"type":"Feature","geometry":{"type":"Point","coordinates":[138.4681,35.4253]},"properties":{"id":"S_207195_0089","anime_id":207195,"name":"国道300号","place_type":"other","city":"山梨县","prefecture":"山梨県","sensitive":false}}]};
-
-// 记录圣地坐标，用于绘制连线
-const siteLatLon={};
-
-SITES.features.forEach(f=>{
-  const p=f.properties;
-  const [lon,lat]=f.geometry.coordinates;
-  siteLatLon[p.id]=[lat,lon];
-  const color=ANIME_COLOR[p.anime_id]||'#888';
-  const hasPano=!!PANO_MAP[p.id];
-  const m=L.circleMarker([lat,lon],{
-    radius:hasPano?9:6,
-    fillColor:color,color:hasPano?'#fff':color,
-    weight:hasPano?2:0.8,opacity:.8,fillOpacity:.85
+function ratioChart_(byYear){
+  const yrs=byYear.filter(r=>r.y>=2005);
+  ratioChart=new Chart(document.getElementById('ratio-chart'),{
+    type:'bar',
+    data:{labels:yrs.map(r=>r.y),datasets:[{
+      label:'圣地数',data:yrs.map(r=>r.sites),
+      backgroundColor:yrs.map(r=>r.y>=2016?'#7c6ef2':'#3a3f55'),
+      borderRadius:2,barPercentage:.95,categoryPercentage:.95}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>` ${c.parsed.y} 个圣地`}}},
+      scales:{x:{ticks:{color:'#9ca3af',font:{size:7},maxRotation:0,autoSkip:true,maxTicksLimit:8},grid:{display:false}},
+        y:{ticks:{color:'#9ca3af',font:{size:8}},grid:{color:'rgba(31,36,53,.9)'}}}}
   });
-  const ptZh=PLACE_TYPE_ZH[p.place_type]||'其他';
-  m.bindPopup(`<b>${p.name}</b><small>【${ANIME_NAME[p.anime_id]}】${p.city}<br>类型：${ptZh}${p.sensitive?' ⚠️ 敏感':''}</small>`);
-  m.on('click',()=>showInfo(p,ptZh,hasPano));
-  m.addTo(sitesLayer);
-});
+}
 
-/* ── GSV 街景点图层 + 连线图层 ───────────────────────── */
-GSV_POINTS.forEach(g=>{
-  const sitePt=siteLatLon[g.id];
-  const cmpData=PANO_MAP[g.id];
+Promise.all([
+  fetch('data/summary.json').then(r=>r.json()),
+  fetch('data/sites.json').then(r=>r.json()),
+  fetch('data/scores.json').then(r=>r.json()),
+]).then(([summary,sites,scores])=>{
+  SCORES=scores;
+  const st=summary.stats;
+  document.getElementById('s-anime').textContent=fmt(st.anime);
+  document.getElementById('s-sites').textContent=fmt(st.sites);
+  document.getElementById('s-elig').textContent=fmt(st.eligible);
+  document.getElementById('s-panel').textContent=fmt(st.panel);
+  document.getElementById('hdr-badge').textContent=
+    `${fmt(st.anime)} 作品 · ${fmt(st.sites)} 圣地 · ${fmt(st.eligible)} DiD 样本`;
+  const rt=summary.ratio;
+  document.getElementById('ratio-foot').innerHTML=
+    `<b style="color:#a5b4fc">2016 年后</b>占 作品 ${rt.pct_anime}% · 圣地 ${rt.pct_sites}%（紫=2016后）`;
 
-  // GSV 采样点标记（黄色菱形感 → 用正方形 divIcon）
-  const icon=L.divIcon({
-    className:'',
-    html:`<div style="width:10px;height:10px;background:#facc15;border:2px solid #fff;transform:rotate(45deg);border-radius:1px"></div>`,
-    iconSize:[10,10],iconAnchor:[5,5],
+  eventStudy(summary.event_study);
+  ratioChart_(summary.ratio_by_year);
+
+  // 地图点位
+  const layer=L.layerGroup();
+  sites.forEach(s=>{
+    L.circleMarker([s.lat,s.lon],{
+      radius:3.5,fillColor:deltaColor(s.dl),color:'#0008',weight:.4,fillOpacity:.82
+    }).addTo(layer)
+      .bindPopup(`<b>${s.nm}</b><small>${s.t}<br>播出 ${s.bc} · ${s.np} 个街景时点`+
+        (s.dl!==null?`<br>活力变化 ${s.dl>=0?'+':''}${s.dl}`:'')+`</small>`)
+      .on('click',()=>showSite(s.id));
   });
-  const gm=L.marker([g.lat,g.lon],{icon});
-  const ptZh=cmpData?PLACE_TYPE_ZH[cmpData.place_type||'other']:'街景采样点';
-  gm.bindPopup(`<b>📷 GSV采样点</b><small>${cmpData?cmpData.name:g.id}<br>最新采集：${g.latest} · ${g.panoids} 张全景<br>${g.note}</small>`);
-  // 点击 GSV 点时同步展示对应圣地信息
-  if(cmpData){
-    gm.on('click',()=>{
-      const f=SITES.features.find(x=>x.properties.id===g.id);
-      if(f) showInfo(f.properties, PLACE_TYPE_ZH[f.properties.place_type]||'其他', true);
-    });
-  }
-  gm.addTo(gsvLayer);
-
-  // 连线（圣地点 → GSV 采样点）
-  if(sitePt){
-    L.polyline([[sitePt[0],sitePt[1]],[g.lat,g.lon]],{
-      color:'rgba(250,204,21,0.55)',weight:1.8,dashArray:'6,4',
-    }).addTo(linesLayer);
-  }
-});
-
-/* ── 添加图层到地图 ───────────────────────────────────── */
-sitesLayer.addTo(map);
-gsvLayer.addTo(map);
-linesLayer.addTo(map);  // 两层均开启时默认显示连线
-
-/* ── 图层控件（两层同时开启 → 自动显示连线）─────────── */
-L.control.layers(null,{
-  '圣地点位': sitesLayer,
-  'GSV 街景采样点': gsvLayer,
-},{collapsed:false,position:'bottomleft'}).addTo(map);
-
-// 任意一层关闭则隐藏连线，两层都开时自动恢复
-map.on('overlayadd overlayremove',()=>{
-  const both=map.hasLayer(sitesLayer)&&map.hasLayer(gsvLayer);
-  if(both && !map.hasLayer(linesLayer)) linesLayer.addTo(map);
-  if(!both && map.hasLayer(linesLayer)) map.removeLayer(linesLayer);
+  layer.addTo(map);
+  document.getElementById('loading').remove();
+}).catch(e=>{
+  document.getElementById('loading').textContent='数据加载失败：'+e;
 });
 </script>
 </body>

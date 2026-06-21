@@ -16,7 +16,7 @@ Phase 2 · 圣地 GSV 时序元数据抓取 + 动漫帧图下载
   docs/img/anime_full/         ← 动漫帧图（仅2016+）
 """
 
-import csv, re, time, json, logging
+import csv, re, time, json, logging, os
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -37,7 +37,8 @@ ANIME_IMG  = Path('docs/img/anime_full')
 GSV_DELAY       = 0.4    # GeoPhotoService 请求间隔（秒）
 IMG_DOWNLOAD_W  = 6      # 图片下载并发线程数
 IMG_SIZE        = (640, 360)   # 动漫帧保存尺寸
-GSV_FROM_YEAR   = 2016   # 只对此年及之后播出的动漫做 GSV 时序查询
+GSV_FROM_YEAR   = int(os.environ.get('GSV_FROM_YEAR', '2012'))  # 起始年(含)；DiD 起点
+GSV_TO_YEAR     = int(os.environ.get('GSV_TO_YEAR', '9999'))    # 结束年(不含)；增量补跑用
 
 OUT_FIELDS = [
     'site_id', 'bangumi_id', 'title_cn', 'air_date',
@@ -184,8 +185,8 @@ def main():
                 log.debug(f'{site_id}: 无法解析播出日期 {air_date}，跳过')
                 continue
 
-            # 只对 GSV_FROM_YEAR 及之后的动漫做 GSV 时序分析
-            if bc_y < GSV_FROM_YEAR:
+            # 只对 [GSV_FROM_YEAR, GSV_TO_YEAR) 区间播出的动漫做 GSV 时序分析
+            if bc_y < GSV_FROM_YEAR or bc_y >= GSV_TO_YEAR:
                 done_ids.add(site_id)   # 标记已处理（跳过），避免重复日志
                 continue
 
