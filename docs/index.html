@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>二次元圣地巡礼 · 空间分析</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -51,6 +52,15 @@ aside{width:340px;background:var(--panel);border-left:1px solid var(--border);di
 .info-card td:last-child{font-size:.76rem}
 .tag{display:inline-block;padding:.1rem .38rem;border-radius:.22rem;font-size:.66rem;font-weight:600;background:#2a2d3e;color:var(--accent)}
 .delta-up{color:var(--up);font-weight:700}.delta-down{color:var(--down);font-weight:700}
+/* 动漫帧 vs 实景街景对比 */
+.cmp-lbl{font-size:.66rem;color:var(--muted);letter-spacing:.04em;margin:.55rem 0 .3rem;display:flex;align-items:center;gap:.35rem}
+.cmp-lbl a{margin-left:auto;color:var(--accent);font-size:.64rem;text-decoration:none}
+.cmp-lbl a:hover{text-decoration:underline}
+.bdg{padding:.05rem .3rem;border-radius:.2rem;font-size:.62rem;font-weight:700}
+.bdg-a{background:#7c6ef222;color:#a5b4fc}.bdg-g{background:#facc1522;color:#facc15}
+.cmp-img{width:100%;display:block;border-radius:.4rem;aspect-ratio:16/10;object-fit:cover;background:#0a0d14}
+.cmp-sv{width:100%;aspect-ratio:16/10;border:0;border-radius:.4rem;background:#0a0d14}
+.cmp-na{width:100%;aspect-ratio:16/10;border-radius:.4rem;background:#0a0d14;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.72rem}
 
 #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:50;color:var(--muted);font-size:.85rem}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}
@@ -114,7 +124,7 @@ aside{width:340px;background:var(--panel);border-left:1px solid var(--border);di
 </div>
 
 <script>
-const ATTR={l:{name:'活力',c:'#22d3ee'},b:{name:'美观',c:'#a3e635'},s:{name:'安全',c:'#f97316'}};
+const ATTR={l:{name:'活力',c:'#22d3ee',ev:'lively'},b:{name:'美观',c:'#a3e635',ev:'beautiful'},s:{name:'安全',c:'#f97316',ev:'safety'}};
 
 /* 播出后活力变化 → 颜色（红=降, 黄=不变, 绿=升）。线性插值 红↔黄↔绿 */
 function deltaColor(d){
@@ -148,6 +158,13 @@ function showSite(sid){
   let deltaTxt='—';
   if(pre.length&&post.length){const d=avg(post)-avg(pre);
     deltaTxt=`<span class="${d>=0?'delta-up':'delta-down'}">${d>=0?'+':''}${d.toFixed(2)}</span>`;}
+  // 动漫帧 vs 实景街景对比
+  const sv=`https://www.google.com/maps?q=&layer=c&cbll=${s.lat},${s.lon}&cbp=11,0,0,0,0&output=svembed`;
+  const svLink=`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${s.lat},${s.lon}`;
+  const animeBlk = s.im
+    ? `<img class="cmp-img" referrerpolicy="no-referrer" src="${s.im.replace(/plan=h\d+/,'plan=h360')}"
+         onerror="this.outerHTML='<div class=cmp-na>动漫截图暂不可加载</div>'">`
+    : `<div class="cmp-na">该点无动漫截图</div>`;
   el.innerHTML=`<div class="info-card">
     <div class="card-title">${s.nm}</div>
     <table>
@@ -156,7 +173,11 @@ function showSite(sid){
       <tr><td>快照</td><td>${s.d.length} 个时点（${s.d[0]} → ${s.d[s.d.length-1]}）</td></tr>
       <tr><td>活力变化</td><td>播出后 − 前 = ${deltaTxt}</td></tr>
     </table>
-    <div class="chart-wrap" style="height:165px;margin-top:.5rem"><canvas id="site-chart"></canvas></div>
+    <div class="cmp-lbl"><span class="bdg bdg-a">动漫帧</span>anitabi 场景截图</div>
+    ${animeBlk}
+    <div class="cmp-lbl"><span class="bdg bdg-g">实景街景</span>Google 街景·可拖动<a href="${svLink}" target="_blank">新窗口打开 ↗</a></div>
+    <iframe class="cmp-sv" src="${sv}" loading="lazy" referrerpolicy="no-referrer"></iframe>
+    <div class="chart-wrap" style="height:165px;margin-top:.6rem"><canvas id="site-chart"></canvas></div>
   </div>`;
   if(siteChart)siteChart.destroy();
   // 播出竖线位置
@@ -184,8 +205,8 @@ function showSite(sid){
 function eventStudy(ev){
   eventChart=new Chart(document.getElementById('event-chart'),{
     type:'line',
-    data:{labels:ev.map(e=>e.rel),datasets:Object.entries(ATTR).map(([k,a])=>({
-      label:a.name,data:ev.map(e=>e[k]),borderColor:a.c,tension:.3,pointRadius:1.5,borderWidth:1.8}))},
+    data:{labels:ev.map(e=>e.rel),datasets:Object.values(ATTR).map(a=>({
+      label:a.name,data:ev.map(e=>e[a.ev]),borderColor:a.c,tension:.3,pointRadius:1.5,borderWidth:1.8}))},
     options:{responsive:true,maintainAspectRatio:false,
       interaction:{mode:'index',intersect:false},
       plugins:{legend:{labels:{color:'#9ca3af',font:{size:9},boxWidth:9,padding:7,usePointStyle:true}},

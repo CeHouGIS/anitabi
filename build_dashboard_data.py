@@ -31,6 +31,7 @@ for sid in by_site:
     by_site[sid].sort(key=lambda r: r['date'])
 
 elig_meta = {r['site_id']: r for r in elig}
+raw_img   = {r['site_id']: r.get('image_url', '') for r in sites}   # 动漫截图 URL
 
 scores = {}
 sites_geo = []
@@ -44,7 +45,9 @@ for sid, recs in by_site.items():
     sf = [round(float(r['safety']), 2) for r in recs]
     bc = m['air_date'][:7]
     scores[sid] = {'d': dates, 'l': lv, 'b': bt, 's': sf,
-                   'bc': bc, 't': m['title_cn'], 'nm': m['name']}
+                   'bc': bc, 't': m['title_cn'], 'nm': m['name'],
+                   'lat': round(float(m['lat']), 5), 'lon': round(float(m['lon']), 5),
+                   'im': raw_img.get(sid, '')}
     # 播出前/后 lively 均值差（地图着色）
     by, bm = ym(bc)
     pre = [r['lively'] for r in recs if ym(r['date']) < (by, bm)]
